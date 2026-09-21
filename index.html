@@ -20,12 +20,12 @@
     }
     h1, h2, h3 { font-family: 'Cinzel', serif; color: #c9a227; }
 
-    /* --- HERO OVERLAY (Tela de Entrada) --- */
+    /* HERO OVERLAY — Imagem estática da entrada */
     .hero-overlay-container {
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
-      background: #000;
+      background: #000 url('Entrada taverna.jpg') center/cover no-repeat;
       z-index: 1000;
       display: flex;
       flex-direction: column;
@@ -43,6 +43,7 @@
       inset: 0;
       overflow: hidden;
       z-index: 0;
+      display: none;
     }
     .hero-video-bg iframe {
       position: absolute;
@@ -55,7 +56,7 @@
     .hero-overlay-dark {
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.55);
+      background: rgba(0,0,0,0.5);
       z-index: 1;
     }
     .hero-content {
@@ -63,11 +64,10 @@
       z-index: 2;
       padding: 20px;
     }
-    .hero-content h1 { font-size: 2.8rem; letter-spacing: 3px; margin-bottom: 5px; }
+    .hero-content h1 { font-size: 2.8rem; letter-spacing: 3px; margin-bottom: 5px; text-shadow: 0 2px 15px rgba(0,0,0,0.9); }
     .hero-content h2 { font-size: 1.2rem; color: #c9a227; letter-spacing: 6px; margin-bottom: 25px; font-weight: 400; }
-    .hero-content p { font-size: 1rem; margin-bottom: 30px; color: #ccc; font-style: italic; }
+    .hero-content p { font-size: 1rem; margin-bottom: 30px; color: #ccc; font-style: italic; text-shadow: 0 2px 8px rgba(0,0,0,0.9); }
     
-    /* --- BOTÃO DOURADO COM PULSO --- */
     .btn-enter {
       display: inline-block;
       background: #c9a227;
@@ -91,9 +91,9 @@
       50% { box-shadow: 0 0 0 15px rgba(201,162,39, 0); }
     }
     
-    .hero-hint { margin-top: 20px; font-size: 0.75rem; color: #888; letter-spacing: 1px; }
+    .hero-hint { margin-top: 20px; font-size: 0.75rem; color: #ccc; letter-spacing: 1px; text-shadow: 0 2px 8px rgba(0,0,0,0.9); }
 
-    /* --- SEÇÃO PRINCIPAL (A Taverna) --- */
+    /* SEÇÃO PRINCIPAL */
     .main-room {
       position: relative;
       min-height: 100vh;
@@ -101,7 +101,6 @@
     }
     .main-room.visible { display: block; }
 
-    /* Hero Room (Runa no balcão) */
     .hero-room {
       position: relative;
       height: 100vh;
@@ -172,22 +171,21 @@
       50% { transform: translateY(10px); opacity: 1; }
     }
 
-    /* --- SEÇÕES DE CONTEÚDO --- */
     section { padding: 60px 20px; max-width: 1100px; margin: 0 auto; }
     .section-title { font-size: 1.8rem; margin-bottom: 10px; text-align: center; }
     .section-subtitle { text-align: center; color: #aaa; margin-bottom: 40px; font-size: 0.95rem; }
 
     .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
     .card {
-      background: rgba(201,162,39,0.08);
-      border: 1px solid rgba(201,162,39,0.3);
+      background: rgba(139,0,0,0.08);
+      border: 1px solid rgba(139,0,0,0.5);
       border-radius: 10px;
       padding: 22px;
       transition: all 0.3s;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
       cursor: pointer;
     }
-    .card:hover { border-color: #c9a227; transform: translateY(-3px); }
+    .card:hover { border-color: #8b0000; transform: translateY(-3px); box-shadow: 0 6px 25px rgba(139,0,0,0.3); }
     .card-tag {
       display: inline-block;
       font-size: 0.75rem;
@@ -205,8 +203,8 @@
 
     .contos-list { display: flex; flex-direction: column; gap: 18px; }
     .conto-item {
-      background: rgba(201,162,39,0.08);
-      border: 1px solid rgba(201,162,39,0.3);
+      background: rgba(139,0,0,0.06);
+      border: 1px solid rgba(139,0,0,0.4);
       border-radius: 10px;
       padding: 20px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
@@ -214,10 +212,117 @@
     .conto-item h3 { font-size: 1.15rem; margin-bottom: 8px; }
     .conto-item p { font-size: 0.9rem; color: #bbb; margin-bottom: 12px; }
     .conto-item a { color: #c9a227; text-decoration: none; font-weight: 500; font-size: 0.9rem; }
+    .conto-item a:hover { text-decoration: underline; }
+
+    /* CARROSSEL */
+    .carrossel-container {
+      position: relative;
+      margin: 20px 0;
+      background: #000;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .carrossel-slides {
+      display: flex;
+      transition: transform 0.4s ease;
+    }
+    .carrossel-slide {
+      min-width: 100%;
+      position: relative;
+    }
+    .carrossel-slide img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .carrossel-legenda {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      color: #e0e0e0;
+      padding: 30px 20px 15px 20px;
+      font-size: 0.9rem;
+      font-style: italic;
+      text-align: center;
+    }
+    .carrossel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.6);
+      color: #c9a227;
+      border: 1px solid #c9a227;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 10;
+    }
+    .carrossel-btn.prev { left: 10px; }
+    .carrossel-btn.next { right: 10px; }
+    .carrossel-indicadores {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 0;
+      background: rgba(0,0,0,0.8);
+    }
+    .carrossel-indicadores span {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(201,162,39,0.4);
+      cursor: pointer;
+    }
+    .carrossel-indicadores span.active {
+      background: #c9a227;
+    }
+
+    /* BOTÃO DE AFILIADO */
+    .btn-afiliado {
+      display: inline-block;
+      background: #8b0000;
+      color: #fff;
+      padding: 14px 30px;
+      border: 1px solid #c9a227;
+      border-radius: 30px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      margin-top: 20px;
+      transition: all 0.3s;
+    }
+    .btn-afiliado:hover { background: #a00000; transform: scale(1.03); }
+
+    /* AUDIO PLAYER DO CONTO */
+    .audio-conto {
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(201,162,39,0.1);
+      border: 1px solid rgba(201,162,39,0.3);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .audio-conto button {
+      background: #c9a227;
+      color: #0a0a0a;
+      border: none;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+    .audio-conto span {
+      color: #c9a227;
+      font-size: 0.9rem;
+      font-style: italic;
+    }
 
     .book-container {
-      background: rgba(201,162,39,0.08);
-      border: 1px solid rgba(201,162,39,0.3);
+      background: rgba(139,0,0,0.06);
+      border: 1px solid rgba(139,0,0,0.4);
       border-radius: 12px;
       padding: 30px 25px;
       min-height: 320px;
@@ -247,7 +352,6 @@
     .contact-link { display: inline-block; color: #c9a227; text-decoration: none; margin-bottom: 20px; font-size: 0.95rem; }
     .copyright { font-size: 0.8rem; color: #666; margin-top: 15px; }
 
-    /* --- MODAL DE AMBIENTE --- */
     .modal-ambiente {
       display: none;
       position: fixed;
@@ -275,7 +379,6 @@
       z-index: 10000;
     }
 
-    /* --- ÁUDIO PLAYER --- */
     .audio-player {
       position: fixed;
       bottom: 20px;
@@ -318,6 +421,7 @@
 <body>
 
   <audio id="boasVindas" src="boas_vindas.mp3" preload="auto"></audio>
+  <audio id="audioRuna" src="runa_historia_completa_v1.mp3" preload="auto"></audio>
   <iframe id="musicaAmbiente" width="0" height="0" style="display:none" src="" allow="autoplay"></iframe>
 
   <div class="modal-ambiente" id="modalAmbiente">
@@ -326,14 +430,14 @@
   </div>
 
   <div class="hero-overlay-container" id="heroOverlay">
-    <div class="hero-video-bg">
+    <div class="hero-video-bg" id="heroVideoBg">
       <iframe id="videoFrente" src="" allow="autoplay; encrypted-media"></iframe>
     </div>
     <div class="hero-overlay-dark"></div>
     <div class="hero-content">
       <h1>Taverna Fenrir</h1>
       <h2>RUNA</h2>
-      <p>"Eu não disse que era quentinho."</p>
+      <p>O fogo está aceso e teu lugar está guardado.</p>
       <button class="btn-enter" onclick="entrarNaTaverna()">ENTRAR NA TAVERNA</button>
       <div class="hero-hint">Toque para atravessar · a porta só abre ao teu chamado</div>
     </div>
@@ -345,7 +449,7 @@
       <div class="hero-room-overlay"></div>
       <div class="hero-room-content">
         <h2>A casa de Runa está aberta.</h2>
-        <button class="btn-listen" onclick="document.getElementById('salões').scrollIntoView({behavior:'smooth'})">
+        <button class="btn-listen" onclick="document.getElementById('contos').scrollIntoView({behavior:'smooth'})">
           Quer ouvir uma história?
         </button>
         <div class="scroll-arrows">
@@ -357,9 +461,9 @@
 
     <section id="salões">
       <h2 class="section-title">Nove portas, uma taverna</h2>
-      <p class="section-subtitle">Comece pelas histórias e pelos mitos. As salas de relíquias guardam lugar para recomendações futuras.</p>
+      <p class="section-subtitle">Comece pelas histórias e pelos mitos.</p>
       <div class="cards-grid">
-        <div class="card" onclick="abrirAmbiente('iQ_rePerQKo')">
+        <div class="card" onclick="document.getElementById('contos').scrollIntoView({behavior:'smooth'})">
           <span class="card-tag">Contos</span>
           <h3>Histórias da Runa</h3>
           <p>Noites junto ao fogo: batalhas, juramentos e a caneca que nunca esfria.</p>
@@ -386,7 +490,7 @@
         <div class="card" onclick="abrirAmbiente('iQ_rePerQKo')">
           <span class="card-tag">Do balcão</span>
           <h3>Canecas & Utensílios</h3>
-          <p>Madeira, ferro e fogo — o kit da taverna ideal, contado em histórias.</p>
+          <p>Do balcão da taverna para a sua mesa.</p>
           <a>Entrar →</a>
         </div>
         <div class="card" onclick="abrirAmbiente('6IHvHI4NfpA')">
@@ -407,10 +511,10 @@
           <p>A trilha da casa: riffs, tambores de guerra e coros de salão.</p>
           <a>Entrar →</a>
         </div>
-        <div class="card" onclick="document.getElementById('sobre').scrollIntoView({behavior:'smooth'})">
-          <span class="card-tag">A dona</span>
-          <h3>Sobre a Runa</h3>
-          <p>Quem é a guerreira atrás do balcão — e o que a prende à taverna.</p>
+        <div class="card" onclick="document.getElementById('arte').scrollIntoView({behavior:'smooth'})">
+          <span class="card-tag">Bastidores</span>
+          <h3>Arte Conceitual</h3>
+          <p>O processo criativo por trás da Runa — esboços e estudos.</p>
           <a>Entrar →</a>
         </div>
       </div>
@@ -420,12 +524,77 @@
       <h2 class="section-title">Desta noite: contos do fogo</h2>
       <p class="section-subtitle">Trechos curtos para ler no celular, entre uma caneca e outra.</p>
       <div class="contos-list">
-        <div class="conto-item"><h3>A caneca que nunca esfria</h3><p>Um viajante duvidou do fogo da casa. Runa serviu, sorriu — e a caneca ardeu em chamas azuis.</p><a>Ler o conto →</a></div>
-        <div class="conto-item"><h3>Juramento sob Yggdrasil</h3><p>Antes de abrir a taverna, Runa gravou uma runa na raiz da árvore e jurou: nenhum ferido fica lá fora.</p><a>Ler o conto →</a></div>
-        <div class="conto-item"><h3>Neve e sangue na porta</h3><p>Na noite em que Fenrir uivou, Runa trocou a espada pelo avental — sem pousar nenhuma das duas.</p><a>Ler o conto →</a></div>
-        <div class="conto-item"><h3>Como Runa aprendeu as runas</h3><p>Antes da espada, a faca de entalhe: a vidente do bando ensinou Runa a ler as runas na madeira, na neve e no silêncio.</p><a>Ler o conto →</a></div>
-        <div class="conto-item"><h3>Bardo e a sua caneca</h3><p>O velho cliente que tem uma caneca específica e uma memória que carrega.</p><a>Ler o conto →</a></div>
-        <div class="conto-item"><h3>Brokkr e Eitri</h3><p>A história dos anões que forjaram o Mjolnir. E por que Runa carrega o pingente no peito.</p><a>Ler o conto →</a></div>
+
+        <div class="conto-item" id="conto-caneca">
+          <h3>A caneca que nunca esfria</h3>
+          <p>Um viajante duvidou do fogo da casa. Runa serviu, sorriu — e a caneca ardeu em chamas azuis.</p>
+        </div>
+
+        <div class="conto-item" id="conto-sobre-runa">
+          <h3>Sobre a Runa</h3>
+          <p>A história completa dela, contada por ela mesma, atrás do balcão.</p>
+          <div class="audio-conto">
+            <button onclick="toggleAudioRuna()" id="btnAudioRuna">▶</button>
+            <span>Ouça a Runa contar a própria história</span>
+          </div>
+        </div>
+
+        <div class="conto-item" id="conto-brokkr">
+          <h3>Brokkr e Eitri</h3>
+          <p>A história dos anões que forjaram o Mjolnir. E por que Runa carrega o pingente no peito.</p>
+        </div>
+
+        <div class="conto-item" id="conto-bardo">
+          <h3>Bardo e a sua caneca</h3>
+          <p>O velho cliente que tem uma caneca específica e uma memória que carrega.</p>
+
+          <div class="carrossel-container">
+            <div class="carrossel-slides" id="carrosselSlides">
+              <div class="carrossel-slide">
+                <img src="Caneca bardo1.png" alt="A Caneca do Bardo">
+                <div class="carrossel-legenda">A Caneca do Bardo — digna de uma saga nórdica.</div>
+              </div>
+              <div class="carrossel-slide">
+                <img src="Caneca bardo2.png" alt="Caneca em pedra com musgo">
+                <div class="carrossel-legenda">Feita para durar. Do balcão da taverna para a sua mesa.</div>
+              </div>
+              <div class="carrossel-slide">
+                <img src="Caneca bardo3.png" alt="Mãos segurando a caneca">
+                <div class="carrossel-legenda">Cada peça carrega a memória de quem a segura.</div>
+              </div>
+              <div class="carrossel-slide">
+                <img src="Caneca bardo4.jpg" alt="Runa servindo">
+                <div class="carrossel-legenda">Runa servindo, atrás do balcão.</div>
+              </div>
+            </div>
+            <button class="carrossel-btn prev" onclick="mudarSlide(-1)">‹</button>
+            <button class="carrossel-btn next" onclick="mudarSlide(1)">›</button>
+            <div class="carrossel-indicadores" id="carrosselIndicadores">
+              <span class="active" onclick="irParaSlide(0)"></span>
+              <span onclick="irParaSlide(1)"></span>
+              <span onclick="irParaSlide(2)"></span>
+              <span onclick="irParaSlide(3)"></span>
+            </div>
+          </div>
+
+          <a href="https://meli.la/1AD7Wh8" target="_blank" class="btn-afiliado">Levar esta relíquia →</a>
+        </div>
+
+        <div class="conto-item" id="conto-juramento">
+          <h3>Juramento sob Yggdrasil</h3>
+          <p>Antes de abrir a taverna, Runa gravou uma runa na raiz da árvore e jurou: nenhum ferido fica lá fora.</p>
+        </div>
+
+        <div class="conto-item" id="conto-neve">
+          <h3>Neve e sangue na porta</h3>
+          <p>Na noite em que Fenrir uivou, Runa trocou a espada pelo avental — sem pousar nenhuma das duas.</p>
+        </div>
+
+        <div class="conto-item" id="conto-runas">
+          <h3>Como Runa aprendeu as runas</h3>
+          <p>Antes da espada, a faca de entalhe: a vidente do bando ensinou Runa a ler as runas na madeira, na neve e no silêncio.</p>
+        </div>
+
       </div>
     </section>
 
@@ -444,22 +613,11 @@
       </div>
     </section>
 
-    <section id="sobre">
-      <h2 class="section-title">Sobre a Runa</h2>
-      <p class="section-subtitle">A história contada por ela mesma, atrás do balcão.</p>
+    <section id="arte">
+      <h2 class="section-title">Arte Conceitual</h2>
+      <p class="section-subtitle">O processo criativo por trás da Runa — esboços, estudos e evoluções.</p>
       <div class="book-container">
-        <div class="book-page active" data-page="1"><p>Senta. A cadeira é sua. O hidromel está quente. E não, eu não disse que era quentinho. Antes de eu te contar qualquer coisa, você precisa entender uma coisa: eu não nasci dona de taverna. Eu nasci numa vila pequena, no norte, onde o inverno dura mais que a vida.</p></div>
-        <div class="book-page" data-page="2"><p>Um dia, homens com machados e tochas chegaram. Eu não vou te contar os detalhes. Eu tinha doze invernos quando enterrei o último deles. Passei a adolescência vagando. Aprendi a roubar comida, a dormir com um olho aberto, a não confiar em ninguém.</p></div>
-        <div class="book-page" data-page="3"><p>Até o dia em que encontrei o bando do Lobo Cinzento. Eles não me acolheram por bondade. Me acolheram porque viram em mim algo que eles conheciam bem: raiva. E me deram um propósito. Uma jornada de vingança.</p></div>
-        <div class="book-page" data-page="4"><p>No bando, havia uma velha. Svala. Vidente, diziam. Ela me ensinou a ler. Runas. A velha dizia: "A espada decide depressa. A runa decide certo." Passei três invernos aprendendo.</p></div>
-        <div class="book-page" data-page="5"><p>Quando finalmente encontrei os homens que mataram a minha família, eu tinha vinte e três invernos e uma faca afiada. Só vou te dizer o que senti depois: nada. A vingança não devolve os mortos.</p></div>
-        <div class="book-page" data-page="6"><p>Numa tarde de chuva, vi uma cabana em pedaços no meio da floresta. E, ao lado dela, algo que parecia uma raiz gigantesca: Yggdrasil partida, queimada por um raio. Eu entendi: eu não precisava mais destruir. Eu precisava construir.</p></div>
-        <div class="book-page" data-page="7"><p>Foi assim que a Taverna Fenrir nasceu. Fenrir mordeu a mão de um deus para se libertar. Eu fiz o mesmo. Se você chegou até aqui, é porque o fogo te chamou. A noite é longa. E eu tenho tempo.</p></div>
-        <div class="runas-footer">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ</div>
-        <div class="book-nav">
-          <button id="btnPrev" onclick="mudarPagina(-1)" disabled>← Voltar</button>
-          <button id="btnNext" onclick="mudarPagina(1)">Avançar →</button>
-        </div>
+        <p style="text-align: center; color: #888; font-style: italic;">As imagens de arte conceitual serão adicionadas aqui em breve.</p>
       </div>
     </section>
 
@@ -484,120 +642,71 @@
   </div>
 
   <div class="audio-player">
-    <button id="btnPlay" onclick="toggleMusic()">❚❚</button>
+    <button id="btnPlay" onclick="toggleMusic()">▶</button>
     <input type="range" class="slider" id="volumeSlider" min="0" max="100" value="10" oninput="ajustarVolume(this.value)">
     <span>♪</span>
   </div>
 
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
-    // ============================================
-    // CONFIGURAÇÃO DOS VÍDEOS
-    // ============================================
     const VIDEO_FRENTE_TAVERNA = "ma_aCbNxNQc";
     const VIDEO_RUNA_BALCAO = "iQ_rePerQKo";
     const VIDEO_MUSICA_AMBIENTE = "2zLQ-JMOB6Q";
 
     let playerFrente, playerRuna, playerMusica, playerAmbiente;
     let ambientesAbertos = false;
+    let audioRunaTocando = false;
 
-    // ============================================
-    // API DO YOUTUBE — INICIALIZAÇÃO
-    // ============================================
     function onYouTubeIframeAPIReady() {
-      // Player do vídeo da frente (tela de entrada)
       playerFrente = new YT.Player('videoFrente', {
-        height: '100%',
-        width: '100%',
+        height: '100%', width: '100%',
         videoId: VIDEO_FRENTE_TAVERNA,
-        playerVars: {
-          'autoplay': 0,
-          'controls': 0,
-          'modestbranding': 1,
-          'playsinline': 1,
-          'rel': 0,
-          'mute': 0
-        },
+        playerVars: { 'autoplay': 0, 'controls': 0, 'modestbranding': 1, 'playsinline': 1, 'rel': 0, 'mute': 0 },
         events: {
           'onReady': (e) => e.target.pauseVideo(),
           'onStateChange': onFrenteStateChange
         }
       });
 
-      // Player da Runa no balcão (Hero)
       playerRuna = new YT.Player('videoRunaBalcao', {
-        height: '100%',
-        width: '100%',
+        height: '100%', width: '100%',
         videoId: VIDEO_RUNA_BALCAO,
-        playerVars: {
-          'autoplay': 0,
-          'controls': 0,
-          'modestbranding': 1,
-          'playsinline': 1,
-          'rel': 0,
-          'mute': 1,
-          'loop': 1,
-          'playlist': VIDEO_RUNA_BALCAO
-        }
+        playerVars: { 'autoplay': 0, 'controls': 0, 'modestbranding': 1, 'playsinline': 1, 'rel': 0, 'mute': 1, 'loop': 1, 'playlist': VIDEO_RUNA_BALCAO }
       });
 
-      // Player da música ambiente
       playerMusica = new YT.Player('musicaAmbiente', {
-        height: '0',
-        width: '0',
+        height: '0', width: '0',
         videoId: VIDEO_MUSICA_AMBIENTE,
-        playerVars: {
-          'autoplay': 0,
-          'controls': 0,
-          'modestbranding': 1,
-          'loop': 1,
-          'playlist': VIDEO_MUSICA_AMBIENTE
-        },
-        events: {
-          'onReady': (e) => e.target.setVolume(10)
-        }
+        playerVars: { 'autoplay': 0, 'controls': 0, 'modestbranding': 1, 'loop': 1, 'playlist': VIDEO_MUSICA_AMBIENTE },
+        events: { 'onReady': (e) => e.target.setVolume(10) }
       });
     }
 
-    // ============================================
-    // 1. ENTRAR NA TAVERNA
-    // ============================================
     function entrarNaTaverna() {
-      // Toca vídeo da frente com som
+      const videoBg = document.getElementById('heroVideoBg');
+      videoBg.style.display = 'block';
       playerFrente.unMute();
       playerFrente.playVideo();
-
-      // Toca áudio de boas-vindas a 20%
       const audio = document.getElementById('boasVindas');
       audio.volume = 0.2;
       audio.play().catch(e => console.log("Áudio restrito:", e));
     }
 
     function onFrenteStateChange(event) {
-      // Quando o vídeo da frente terminar (estado 0 = ENDED)
       if (event.data === 0) {
-        // Esconde a Hero Overlay
         document.getElementById('heroOverlay').classList.add('hidden');
-        // Revela o conteúdo principal
         document.getElementById('mainRoom').classList.add('visible');
-        // Inicia o vídeo da Runa no balcão
         playerRuna.playVideo();
-        // Inicia a música ambiente
         iniciarMusica();
       }
     }
 
-    // ============================================
-    // 2. MÚSICA AMBIENTE
-    // ============================================
     let musicaIniciada = false;
-
     function iniciarMusica() {
       if (musicaIniciada) return;
       musicaIniciada = true;
       playerMusica.setVolume(10);
       playerMusica.playVideo();
-      // Após 5 segundos, aumenta para 20%
       setTimeout(() => {
         playerMusica.setVolume(20);
         document.getElementById('volumeSlider').value = 20;
@@ -606,7 +715,8 @@
 
     function toggleMusic() {
       const btn = document.getElementById('btnPlay');
-      if (btn.textContent === "❚❚") {
+      if (!playerMusica || !playerMusica.getPlayerState) return;
+      if (playerMusica.getPlayerState() === 1) {
         playerMusica.pauseVideo();
         btn.textContent = "▶";
       } else {
@@ -616,87 +726,68 @@
     }
 
     function ajustarVolume(valor) {
-      playerMusica.setVolume(valor);
+      if (playerMusica && playerMusica.setVolume) playerMusica.setVolume(valor);
     }
 
-    // ============================================
-    // 3. ABRIR AMBIENTE (vídeo de transição)
-    // ============================================
     function abrirAmbiente(videoId) {
-      // Pausa o vídeo da Runa no balcão
       playerRuna.pauseVideo();
-
-      // Abre o modal com o vídeo do ambiente
       const modal = document.getElementById('modalAmbiente');
-      const frame = document.getElementById('ambienteFrame');
-
-      // Cria o player do ambiente
       playerAmbiente = new YT.Player('ambienteFrame', {
-        height: '100%',
-        width: '100%',
+        height: '100%', width: '100%',
         videoId: videoId,
-        playerVars: {
-          'autoplay': 1,
-          'controls': 0,
-          'modestbranding': 1,
-          'playsinline': 1,
-          'rel': 0,
-          'mute': 0
-        },
-        events: {
-          'onStateChange': onAmbienteStateChange
-        }
+        playerVars: { 'autoplay': 1, 'controls': 0, 'modestbranding': 1, 'playsinline': 1, 'rel': 0, 'mute': 0 },
+        events: { 'onStateChange': onAmbienteStateChange }
       });
-
       modal.classList.add('active');
       ambientesAbertos = true;
     }
 
     function onAmbienteStateChange(event) {
-      // Quando o vídeo do ambiente terminar
-      if (event.data === 0) {
-        fecharAmbiente();
-      }
+      if (event.data === 0) fecharAmbiente();
     }
 
     function fecharAmbiente() {
-      const modal = document.getElementById('modalAmbiente');
-      modal.classList.remove('active');
-
-      // Destrói o player do ambiente
-      if (playerAmbiente) {
-        playerAmbiente.destroy();
-        playerAmbiente = null;
-      }
-
-      // Retoma o vídeo da Runa no balcão
-      if (ambientesAbertos) {
-        playerRuna.playVideo();
-        ambientesAbertos = false;
-      }
+      document.getElementById('modalAmbiente').classList.remove('active');
+      if (playerAmbiente) { playerAmbiente.destroy(); playerAmbiente = null; }
+      if (ambientesAbertos) { playerRuna.playVideo(); ambientesAbertos = false; }
     }
 
-    // ============================================
-    // 4. LIVRO (Sobre a Runa)
-    // ============================================
-    let paginaAtual = 1;
-    const totalPaginas = 7;
+    // CARROSSEL
+    let slideAtual = 0;
+    const totalSlides = 4;
+    function mudarSlide(direcao) {
+      slideAtual += direcao;
+      if (slideAtual < 0) slideAtual = totalSlides - 1;
+      if (slideAtual >= totalSlides) slideAtual = 0;
+      atualizarCarrossel();
+    }
+    function irParaSlide(index) {
+      slideAtual = index;
+      atualizarCarrossel();
+    }
+    function atualizarCarrossel() {
+      const slides = document.getElementById('carrosselSlides');
+      slides.style.transform = 'translateX(-' + (slideAtual * 100) + '%)';
+      document.querySelectorAll('#carrosselIndicadores span').forEach((dot, i) => {
+        dot.classList.toggle('active', i === slideAtual);
+      });
+    }
 
-    function mudarPagina(direcao) {
-      paginaAtual += direcao;
-      if (paginaAtual < 1) paginaAtual = 1;
-      if (paginaAtual > totalPaginas) paginaAtual = totalPaginas;
-
-      document.querySelectorAll('.book-page').forEach(p => p.classList.remove('active'));
-      const targetPage = document.querySelector('.book-page[data-page="' + paginaAtual + '"]');
-      if (targetPage) targetPage.classList.add('active');
-
-      const btnPrev = document.getElementById('btnPrev');
-      const btnNext = document.getElementById('btnNext');
-      if (btnPrev) btnPrev.disabled = (paginaAtual === 1);
-      if (btnNext) btnNext.disabled = (paginaAtual === totalPaginas);
+    // ÁUDIO DA RUNA
+    function toggleAudioRuna() {
+      const audio = document.getElementById('audioRuna');
+      const btn = document.getElementById('btnAudioRuna');
+      if (audioRunaTocando) {
+        audio.pause();
+        btn.textContent = "▶";
+        audioRunaTocando = false;
+      } else {
+        audio.play();
+        btn.textContent = "❚❚";
+        audioRunaTocando = true;
+      }
     }
   </script>
 
 </body>
-    </html>
+          </html>
