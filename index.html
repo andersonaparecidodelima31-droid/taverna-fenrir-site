@@ -20,7 +20,7 @@
     }
     h1, h2, h3 { font-family: 'Cinzel', serif; color: #c9a227; }
 
-    /* HERO com fallback de imagem */
+    /* HERO — imagem estática de fallback */
     .hero {
       position: relative;
       height: 100vh;
@@ -31,17 +31,8 @@
       text-align: center;
       background: #000 url('frente_taverna.jpg') center/cover no-repeat;
     }
-    .hero iframe {
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 100vw; height: 56.25vw;
-      min-height: 100vh; min-width: 177.77vh;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: 1;
-    }
-    .hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.65); z-index: 2; }
-    .hero-content { position: relative; z-index: 3; padding: 20px; }
+    .hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.65); z-index: 1; }
+    .hero-content { position: relative; z-index: 2; padding: 20px; }
     .hero h1 { font-size: 2.8rem; letter-spacing: 2px; margin-bottom: 5px; }
     .hero h2 { font-size: 1.4rem; color: #c9a227; letter-spacing: 4px; margin-bottom: 25px; font-weight: 400; }
     .hero p { font-size: 1.1rem; margin-bottom: 30px; color: #ccc; }
@@ -61,7 +52,7 @@
     .btn-enter:hover { background: #a00000; transform: scale(1.03); }
     .hero-hint { margin-top: 18px; font-size: 0.85rem; color: #888; }
 
-    /* MODAL */
+    /* MODAL — vídeo da frente da taverna */
     .modal-door {
       display: none;
       position: fixed;
@@ -88,7 +79,7 @@
       z-index: 10000;
     }
 
-    /* SEÇÃO PRINCIPAL (Runa no balcão) */
+    /* SEÇÃO PRINCIPAL — vídeo Runa no balcão */
     .main-room {
       position: relative;
       min-height: 100vh;
@@ -145,7 +136,6 @@
     .card h3 { font-size: 1.2rem; margin-bottom: 10px; }
     .card p { font-size: 0.9rem; color: #bbb; margin-bottom: 15px; }
     .card a { color: #c9a227; text-decoration: none; font-weight: 500; font-size: 0.9rem; }
-    .card a:hover { text-decoration: underline; }
 
     .contos-list { display: flex; flex-direction: column; gap: 18px; }
     .conto-item {
@@ -180,19 +170,15 @@
       cursor: pointer;
       font-family: 'Cinzel', serif;
       font-size: 0.9rem;
-      transition: all 0.3s;
     }
-    .book-nav button:hover { background: #c9a227; color: #0a0a0a; }
     .book-nav button:disabled { opacity: 0.3; cursor: not-allowed; }
     .runas-footer { text-align: center; color: #c9a227; font-size: 1.2rem; letter-spacing: 8px; margin-top: 20px; opacity: 0.6; }
 
     footer { background: #050505; border-top: 1px solid rgba(201,162,39,0.2); padding: 40px 20px; text-align: center; }
     .social-icons { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
-    .social-icons a { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; transition: transform 0.3s; }
-    .social-icons a:hover { transform: scale(1.15); }
+    .social-icons a { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; }
     .social-icons svg { width: 24px; height: 24px; }
     .contact-link { display: inline-block; color: #c9a227; text-decoration: none; margin-bottom: 20px; font-size: 0.95rem; }
-    .contact-link:hover { text-decoration: underline; }
     .copyright { font-size: 0.8rem; color: #666; margin-top: 15px; }
 
     .audio-player {
@@ -213,17 +199,14 @@
 </head>
 <body>
 
-  <!-- ÁUDIOS -->
   <audio id="boasVindas" src="boas_vindas.mp3" preload="auto"></audio>
   <iframe id="musicaAmbiente" width="0" height="0" style="display:none" src="" allow="autoplay"></iframe>
 
-  <!-- MODAL (vídeo frente da taverna) -->
   <div class="modal-door" id="modalDoor">
     <iframe id="doorFrame" src="" allow="autoplay; encrypted-media"></iframe>
     <button class="btn-skip" onclick="pularModal()">Pular →</button>
   </div>
 
-  <!-- HERO (imagem frente da taverna + botão) -->
   <section class="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
@@ -235,7 +218,6 @@
     </div>
   </section>
 
-  <!-- SEÇÃO PRINCIPAL (vídeo Runa no balcão de fundo) -->
   <div class="main-room" id="mainRoom">
     <div class="video-bg">
       <iframe id="runaFrame" src="" allow="autoplay; encrypted-media"></iframe>
@@ -243,59 +225,56 @@
 
     <section id="salões">
       <h2 class="section-title">Nove portas, uma taverna</h2>
-      <p class="section-subtitle">Comece pelas histórias e pelos mitos. As salas de relíquias guardam lugar para recomendações futuras.</p>
+      <p class="section-subtitle">Comece pelas histórias e pelos mitos.</p>
       <div class="cards-grid">
         <div class="card"><span class="card-tag">Contos</span><h3>Histórias da Runa</h3><p>Noites junto ao fogo: batalhas, juramentos e a caneca que nunca esfria.</p><a href="#contos">Entrar →</a></div>
-        <div class="card"><span class="card-tag">Mitos</span><h3>Mitologia Nórdica</h3><p>Yggdrasil, os Nove Mundos, Fenrir e os deuses que observam a taverna.</p><a href="#universo">Entrar →</a></div>
-        <div class="card"><span class="card-tag">Mundo</span><h3>Universo Viking</h3><p>Rotas, clãs, navios e costumes que moldaram a guerreira taberneira.</p><a href="#universo">Entrar →</a></div>
-        <div class="card"><span class="card-tag">Sala de relíquias</span><h3>Anéis & Pingentes</h3><p>Peças ligadas às histórias. Recomendações externas chegarão aqui.</p><a href="#contos">Entrar →</a></div>
-        <div class="card"><span class="card-tag">Do balcão</span><h3>Canecas & Utensílios</h3><p>Madeira, ferro e fogo — o kit da taverna ideal, contado em histórias.</p><a href="#contos">Entrar →</a></div>
-        <div class="card"><span class="card-tag">Vestir</span><h3>Camisetas</h3><p>Tecido de estrada: símbolos da casa para usar fora da taverna.</p><a href="#contos">Entrar →</a></div>
-        <div class="card"><span class="card-tag">Vestir</span><h3>Casacos</h3><p>Contra a neve lá fora: camadas quentes com espírito do norte.</p><a href="#contos">Entrar →</a></div>
-        <div class="card"><span class="card-tag">Som</span><h3>Rock & Metal</h3><p>A trilha da casa: riffs, tambores de guerra e coros de salão.</p><a href="#contos">Entrar →</a></div>
-        <div class="card"><span class="card-tag">A dona</span><h3>Sobre a Runa</h3><p>Quem é a guerreira atrás do balcão — e o que a prende à taverna.</p><a href="#sobre">Entrar →</a></div>
+        <div class="card"><span class="card-tag">Mitos</span><h3>Mitologia Nórdica</h3><p>Yggdrasil, os Nove Mundos, Fenrir e os deuses que observam.</p><a href="#universo">Entrar →</a></div>
+        <div class="card"><span class="card-tag">Mundo</span><h3>Universo Viking</h3><p>Rotas, clãs, navios e costumes que moldaram a guerreira.</p><a href="#universo">Entrar →</a></div>
+        <div class="card"><span class="card-tag">Sala de relíquias</span><h3>Anéis & Pingentes</h3><p>Peças ligadas às histórias.</p><a href="#contos">Entrar →</a></div>
+        <div class="card"><span class="card-tag">Do balcão</span><h3>Canecas & Utensílios</h3><p>Madeira, ferro e fogo.</p><a href="#contos">Entrar →</a></div>
+        <div class="card"><span class="card-tag">Vestir</span><h3>Camisetas</h3><p>Tecido de estrada.</p><a href="#contos">Entrar →</a></div>
+        <div class="card"><span class="card-tag">Vestir</span><h3>Casacos</h3><p>Contra a neve lá fora.</p><a href="#contos">Entrar →</a></div>
+        <div class="card"><span class="card-tag">Som</span><h3>Rock & Metal</h3><p>A trilha da casa.</p><a href="#contos">Entrar →</a></div>
+        <div class="card"><span class="card-tag">A dona</span><h3>Sobre a Runa</h3><p>Quem é a guerreira atrás do balcão.</p><a href="#sobre">Entrar →</a></div>
       </div>
     </section>
 
     <section id="contos">
       <h2 class="section-title">Desta noite: contos do fogo</h2>
-      <p class="section-subtitle">Trechos curtos para ler no celular, entre uma caneca e outra.</p>
       <div class="contos-list">
-        <div class="conto-item"><h3>A caneca que nunca esfria</h3><p>Um viajante duvidou do fogo da casa. Runa serviu, sorriu — e a caneca ardeu em chamas azuis.</p><a href="#">Ler o conto →</a></div>
-        <div class="conto-item"><h3>Juramento sob Yggdrasil</h3><p>Antes de abrir a taverna, Runa gravou uma runa na raiz da árvore e jurou: nenhum ferido fica lá fora.</p><a href="#">Ler o conto →</a></div>
-        <div class="conto-item"><h3>Neve e sangue na porta</h3><p>Na noite em que Fenrir uivou, Runa trocou a espada pelo avental — sem pousar nenhuma das duas.</p><a href="#">Ler o conto →</a></div>
-        <div class="conto-item"><h3>Como Runa aprendeu as runas</h3><p>Antes da espada, a faca de entalhe: a vidente do bando ensinou Runa a ler as runas na madeira, na neve e no silêncio.</p><a href="#">Ler o conto →</a></div>
-        <div class="conto-item"><h3>Bardo e a sua caneca</h3><p>O velho cliente que tem uma caneca específica e uma memória que carrega.</p><a href="#">Ler o conto →</a></div>
-        <div class="conto-item"><h3>Brokkr e Eitri</h3><p>A história dos anões que forjaram o Mjolnir. E por que Runa carrega o pingente no peito.</p><a href="#">Ler o conto →</a></div>
+        <div class="conto-item"><h3>A caneca que nunca esfria</h3><p>Um viajante duvidou do fogo da casa.</p><a href="#">Ler o conto →</a></div>
+        <div class="conto-item"><h3>Juramento sob Yggdrasil</h3><p>Nenhum ferido fica lá fora.</p><a href="#">Ler o conto →</a></div>
+        <div class="conto-item"><h3>Neve e sangue na porta</h3><p>A trégua dura até a caneca esvaziar.</p><a href="#">Ler o conto →</a></div>
+        <div class="conto-item"><h3>Como Runa aprendeu as runas</h3><p>A vidente do bando ensinou.</p><a href="#">Ler o conto →</a></div>
+        <div class="conto-item"><h3>Bardo e a sua caneca</h3><p>O velho cliente e sua memória.</p><a href="#">Ler o conto →</a></div>
+        <div class="conto-item"><h3>Brokkr e Eitri</h3><p>Os anões que forjaram o Mjolnir.</p><a href="#">Ler o conto →</a></div>
       </div>
     </section>
 
     <section id="universo">
       <h2 class="section-title">Você sabia?</h2>
-      <p class="section-subtitle">Curiosidades rápidas para quebrar o gelo.</p>
       <div class="cards-grid">
-        <div class="card"><span class="card-tag">Sociedade</span><h3>O povo do norte</h3><p>Nem todo viking era guerreiro. A maioria era camponesa. Runa era uma Karl antes de se tornar dona de taverna.</p></div>
-        <div class="card"><span class="card-tag">Cotidiano</span><h3>A vida no norte</h3><p>Invernos longos, verões curtos. Famílias dividiam a casa com os animais. O hidromel aquece, as sagas passam o tempo.</p></div>
-        <div class="card"><span class="card-tag">Guerra</span><h3>Aço e madeira</h3><p>O escudo redondo era a primeira defesa. Machados partiam escudos, lanças voavam antes do corpo a corpo.</p></div>
-        <div class="card"><span class="card-tag">Guerra</span><h3>O muro de escudos</h3><p>Lado a lado, escudo contra escudo. Os vikings lutavam como uma parede que caminha.</p></div>
-        <div class="card"><span class="card-tag">Sobrevivência</span><h3>O perigo do inverno</h3><p>As colheitas falhavam, o gado morria. Infecções matavam mais que espadas.</p></div>
-        <div class="card"><span class="card-tag">Destino</span><h3>A média de vida</h3><p>A expectativa era de 50 anos, mas a maioria morria antes dos 40. Runa, com 27, já era uma sobrevivente.</p></div>
-        <div class="card"><span class="card-tag">Crenças</span><h3>Deuses que observam</h3><p>Thor era o deus dos camponeses. Frey, da paz. Odin, dos guerreiros. Valhalla prometia batalhas eternas.</p></div>
-        <div class="card"><span class="card-tag">Curiosidades</span><h3>Você sabia?</h3><p>A maioria dos vikings não usava capacetes com chifres. Eles chegaram à América 500 anos antes de Colombo.</p></div>
+        <div class="card"><span class="card-tag">Sociedade</span><h3>O povo do norte</h3><p>A maioria era camponesa.</p></div>
+        <div class="card"><span class="card-tag">Cotidiano</span><h3>A vida no norte</h3><p>Invernos longos, verões curtos.</p></div>
+        <div class="card"><span class="card-tag">Guerra</span><h3>Aço e madeira</h3><p>O escudo redondo era a defesa.</p></div>
+        <div class="card"><span class="card-tag">Guerra</span><h3>O muro de escudos</h3><p>Lutavam como uma parede.</p></div>
+        <div class="card"><span class="card-tag">Sobrevivência</span><h3>O perigo do inverno</h3><p>As colheitas falhavam.</p></div>
+        <div class="card"><span class="card-tag">Destino</span><h3>A média de vida</h3><p>Poucos passavam dos 40.</p></div>
+        <div class="card"><span class="card-tag">Crenças</span><h3>Deuses que observam</h3><p>Thor, Frey, Odin.</p></div>
+        <div class="card"><span class="card-tag">Curiosidades</span><h3>Você sabia?</h3><p>Sem capacetes com chifres.</p></div>
       </div>
     </section>
 
     <section id="sobre">
       <h2 class="section-title">Sobre a Runa</h2>
-      <p class="section-subtitle">A história contada por ela mesma, atrás do balcão.</p>
       <div class="book-container">
-        <div class="book-page active" data-page="1"><p>Senta. A cadeira é sua. O hidromel está quente. E não, eu não disse que era quentinho. Antes de eu te contar qualquer coisa, você precisa entender uma coisa: eu não nasci dona de taverna. Eu nasci numa vila pequena, no norte, onde o inverno dura mais que a vida.</p></div>
-        <div class="book-page" data-page="2"><p>Um dia, homens com machados e tochas chegaram. Eu não vou te contar os detalhes. Eu tinha doze invernos quando enterrei o último deles. Passei a adolescência vagando. Aprendi a roubar comida, a dormir com um olho aberto, a não confiar em ninguém.</p></div>
-        <div class="book-page" data-page="3"><p>Até o dia em que encontrei o bando do Lobo Cinzento. Eles não me acolheram por bondade. Me acolheram porque viram em mim algo que eles conheciam bem: raiva. E me deram um propósito. Uma jornada de vingança.</p></div>
-        <div class="book-page" data-page="4"><p>No bando, havia uma velha. Svala. Vidente, diziam. Ela me ensinou a ler. Runas. A velha dizia: "A espada decide depressa. A runa decide certo." Passei três invernos aprendendo.</p></div>
-        <div class="book-page" data-page="5"><p>Quando finalmente encontrei os homens que mataram a minha família, eu tinha vinte e três invernos e uma faca afiada. Só vou te dizer o que senti depois: nada. A vingança não devolve os mortos.</p></div>
-        <div class="book-page" data-page="6"><p>Numa tarde de chuva, vi uma cabana em pedaços no meio da floresta. E, ao lado dela, algo que parecia uma raiz gigantesca: Yggdrasil partida, queimada por um raio. Eu entendi: eu não precisava mais destruir. Eu precisava construir.</p></div>
-        <div class="book-page" data-page="7"><p>Foi assim que a Taverna Fenrir nasceu. Fenrir mordeu a mão de um deus para se libertar. Eu fiz o mesmo. Se você chegou até aqui, é porque o fogo te chamou. A noite é longa. E eu tenho tempo.</p></div>
+        <div class="book-page active" data-page="1"><p>Senta. A cadeira é sua. O hidromel está quente. E não, eu não disse que era quentinho.</p></div>
+        <div class="book-page" data-page="2"><p>Um dia, homens com machados e tochas chegaram. Eu tinha doze invernos.</p></div>
+        <div class="book-page" data-page="3"><p>Até o dia em que encontrei o bando do Lobo Cinzento. Me deram um propósito.</p></div>
+        <div class="book-page" data-page="4"><p>No bando, havia uma velha. Svala. Ela me ensinou a ler runas.</p></div>
+        <div class="book-page" data-page="5"><p>Quando encontrei os homens que mataram a minha família, senti nada.</p></div>
+        <div class="book-page" data-page="6"><p>Numa tarde de chuva, vi Yggdrasil partida. Eu precisava construir.</p></div>
+        <div class="book-page" data-page="7"><p>Foi assim que a Taverna Fenrir nasceu. A noite é longa. E eu tenho tempo.</p></div>
         <div class="runas-footer">ᚠ ᚢ ᚦ ᚨ ᚱ ᚲ</div>
         <div class="book-nav">
           <button id="btnPrev" onclick="mudarPagina(-1)" disabled>← Voltar</button>
@@ -320,7 +299,7 @@
         </a>
       </div>
       <a class="contact-link" href="mailto:runa.fenrir.oficial@gmail.com">Deixe sua opinião sobre as histórias</a>
-      <div class="copyright">© Taverna Fenrir. Conto de fantasia — qualquer semelhança com deuses é proposital.</div>
+      <div class="copyright">© Taverna Fenrir.</div>
     </footer>
   </div>
 
@@ -330,91 +309,100 @@
   </div>
 
   <script>
-    // IDs dos vídeos
-    const VIDEO_FRENTE_TAVERNA = "ma_aCbNxNQc"; // Animação ao apertar ENTRAR
-    const VIDEO_RUNA_BALCAO = "iQ_rePerQKo";    // Fundo da seção principal
+    const VIDEO_FRENTE_TAVERNA = "ma_aCbNxNQc";
+    const VIDEO_RUNA_BALCAO = "iQ_rePerQKo";
+    let modalTimeout = null;
 
-    // ============================================
-    // 1. ENTRAR NA TAVERNA (abre modal com vídeo)
-    // ============================================
     function entrarNaTaverna() {
       const modal = document.getElementById('modalDoor');
       const frame = document.getElementById('doorFrame');
-      frame.src = "https://www.youtube.com/embed/" + VIDEO_FRENTE_TAVERNA + "?autoplay=1&mute=0&loop=0&controls=0&modestbranding=1&playsinline=1&rel=0&version=3";
-      modal.classList.add('active');
 
-      // Toca áudio de boas-vindas a 20%
+      if (modal && frame) {
+        // Correção mobile: Garantir que o src é injetado e ativado corretamente
+        frame.src = "https://www.youtube.com/embed/" + VIDEO_FRENTE_TAVERNA + "?autoplay=1&mute=0&loop=0&controls=0&modestbranding=1&playsinline=1&rel=0";
+        modal.classList.add('active');
+      }
+
       const audio = document.getElementById('boasVindas');
-      audio.volume = 0.2;
-      audio.play().catch(e => console.log("Áudio precisa de interação:", e));
+      if (audio) {
+        audio.volume = 0.2;
+        audio.play().catch(e => console.log("Áudio restrito pelo navegador:", e));
+      }
 
-      // Fecha modal após 8 segundos (tempo do vídeo)
-      setTimeout(() => { pularModal(); }, 8000);
+      // Limpa timer anterior se houver e agenda fechamento seguro de 7 segundos
+      if (modalTimeout) clearTimeout(modalTimeout);
+      modalTimeout = setTimeout(() => { pularModal(); }, 7000);
     }
 
-    // ============================================
-    // 2. PULAR MODAL → inicia seção principal
-    // ============================================
     function pularModal() {
-      document.getElementById('modalDoor').classList.remove('active');
-      document.getElementById('doorFrame').src = "";
+      if (modalTimeout) clearTimeout(modalTimeout);
+      
+      const modal = document.getElementById('modalDoor');
+      const doorFrame = document.getElementById('doorFrame');
 
-      // Carrega vídeo da Runa no balcão (fundo da seção principal)
+      if (modal) modal.classList.remove('active');
+      if (doorFrame) doorFrame.src = ""; // Limpa o iframe para matar o processo do vídeo na memória
+
       const runaFrame = document.getElementById('runaFrame');
-      runaFrame.src = "https://www.youtube.com/embed/" + VIDEO_RUNA_BALCAO + "?autoplay=1&mute=1&loop=1&playlist=" + VIDEO_RUNA_BALCAO + "&controls=0&modestbranding=1&playsinline=1&rel=0&version=3";
+      if (runaFrame) {
+        // Correção para o loop instável: adicionando playlist parameter obrigatório pro loop nativo do YouTube embed
+        runaFrame.src = "https://www.youtube.com/embed/" + VIDEO_RUNA_BALCAO + "?autoplay=1&mute=1&loop=1&playlist=" + VIDEO_RUNA_BALCAO + "&controls=0&modestbranding=1&playsinline=1&rel=0";
+      }
 
-      // Inicia música ambiente a 10%
-      iniciarMusica(0.1);
+      iniciarMusica();
     }
 
-    // ============================================
-    // 3. MÚSICA AMBIENTE (10% → 20%)
-    // ============================================
     let musicaIniciada = false;
-    function iniciarMusica(volumeInicial) {
+
+    function iniciarMusica() {
       if (musicaIniciada) return;
       musicaIniciada = true;
-      const iframe = document.getElementById('musicaAmbiente');
-      iframe.src = "https://www.youtube.com/embed/2zLQ-JMOB6Q?autoplay=1&loop=1&playlist=2zLQ-JMOB6Q&controls=0&modestbranding=1&version=3";
 
-      // Aumenta o volume gradualmente para 20% após 5 segundos
-      setTimeout(() => {
-        try {
-          iframe.contentWindow.postMessage('{"event":"command","func":"setVolume","args":[20]}', '*');
-        } catch(e) { console.log("Volume via postMessage não suportado"); }
-      }, 5000);
+      const iframe = document.getElementById('musicaAmbiente');
+      if (iframe) {
+        iframe.src = "https://www.youtube.com/embed/2zLQ-JMOB6Q?autoplay=1&loop=1&playlist=2zLQ-JMOB6Q&controls=0&modestbranding=1";
+      }
     }
 
     function toggleMusic() {
       const btn = document.getElementById('btnPlay');
       const iframe = document.getElementById('musicaAmbiente');
+
+      if (!iframe || !btn) return;
+
       if (iframe.src === "") {
-        iniciarMusica(0.1);
-        btn.textContent = "❚❚";
-      } else if (btn.textContent === "▶") {
-        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        iniciarMusica();
         btn.textContent = "❚❚";
       } else {
-        iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-        btn.textContent = "▶";
+        // Alterna entre ocultar ou pausar alterando a propriedade de volume ou recriando o src de forma limpa
+        if (btn.textContent === "▶") {
+          iframe.src = "https://www.youtube.com/embed/2zLQ-JMOB6Q?autoplay=1&loop=1&playlist=2zLQ-JMOB6Q&controls=0&modestbranding=1";
+          btn.textContent = "❚❚";
+        } else {
+          iframe.src = "";
+          btn.textContent = "▶";
+        }
       }
     }
 
-    // ============================================
-    // 4. LIVRO (Sobre a Runa)
-    // ============================================
     let paginaAtual = 1;
     const totalPaginas = 7;
+
     function mudarPagina(direcao) {
       paginaAtual += direcao;
       if (paginaAtual < 1) paginaAtual = 1;
       if (paginaAtual > totalPaginas) paginaAtual = totalPaginas;
+
       document.querySelectorAll('.book-page').forEach(p => p.classList.remove('active'));
-      document.querySelector('.book-page[data-page="' + paginaAtual + '"]').classList.add('active');
-      document.getElementById('btnPrev').disabled = (paginaAtual === 1);
-      document.getElementById('btnNext').disabled = (paginaAtual === totalPaginas);
+      const targetPage = document.querySelector('.book-page[data-page="' + paginaAtual + '"]');
+      if (targetPage) targetPage.classList.add('active');
+
+      const btnPrev = document.getElementById('btnPrev');
+      const btnNext = document.getElementById('btnNext');
+      if (btnPrev) btnPrev.disabled = (paginaAtual === 1);
+      if (btnNext) btnNext.disabled = (paginaAtual === totalPaginas);
     }
   </script>
 
 </body>
-  </html>
+</html>
