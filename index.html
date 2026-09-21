@@ -1,629 +1,1845 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Taverna Fenrir — Runa</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: #0a0a0a;
-      color: #e0e0e0;
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px;
-      line-height: 1.5;
-      overflow-x: hidden;
-    }
-    h1, h2, h3 { font-family: 'Cinzel', serif; color: #c9a227; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090705">
 
-    /* HERO OVERLAY — Capa Estática */
-    .hero-overlay-container {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: #000 url('Entrada taverna.jpg') center/cover no-repeat;
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      transition: opacity 1s ease;
-    }
-    .hero-overlay-container.hidden { opacity: 0; pointer-events: none; }
+<title>Taverna Fenrir — Runa</title>
 
-    .hero-overlay-dark {
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 1;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      padding: 20px;
-    }
-    .hero-content h1 { font-size: 2.8rem; letter-spacing: 3px; margin-bottom: 5px; text-shadow: 0 2px 15px rgba(0,0,0,0.9); }
-    .hero-content h2 { font-size: 1.2rem; color: #c9a227; letter-spacing: 6px; margin-bottom: 25px; font-weight: 400; }
-    .hero-content p { font-size: 1rem; margin-bottom: 30px; color: #ccc; font-style: italic; text-shadow: 0 2px 8px rgba(0,0,0,0.9); }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 
-    .btn-enter {
-      display: inline-block;
-      background: #c9a227;
-      color: #0a0a0a;
-      padding: 16px 44px;
-      border: none;
-      border-radius: 30px;
-      font-family: 'Cinzel', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-transform: uppercase;
-      animation: pulse-gold 2s infinite;
-    }
-    .btn-enter:hover { background: #d4af37; transform: scale(1.05); }
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
 
-    @keyframes pulse-gold {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(201,162,39, 0.7); }
-      50% { box-shadow: 0 0 0 15px rgba(201,162,39, 0); }
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#080604;
+    color:#eee7dc;
+    font-family:'Roboto',sans-serif;
+    overflow-x:hidden;
+}
+
+button,
+a{
+    -webkit-tap-highlight-color:transparent;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+h1,h2,h3,h4{
+    font-family:'Cinzel',serif;
+    letter-spacing:.06em;
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+/* =========================
+   ENTRADA
+========================= */
+
+.hero-overlay-container{
+    position:fixed;
+    inset:0;
+    z-index:1000;
+    background:#050403;
+    overflow:hidden;
+    transition:opacity 1s ease, visibility 1s ease;
+}
+
+.hero-overlay-container.hidden{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+}
+
+.hero-video-bg{
+    position:absolute;
+    inset:0;
+    display:none;
+    overflow:hidden;
+}
+
+.hero-video-bg iframe{
+    position:absolute;
+    width:100vw;
+    height:56.25vw;
+    min-height:100vh;
+    min-width:177.78vh;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    border:0;
+}
+
+.hero-image-fallback{
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(rgba(0,0,0,.25),rgba(0,0,0,.82)),
+        url("Entrada taverna.jpg") center/cover no-repeat;
+}
+
+.hero-overlay-dark{
+    position:absolute;
+    inset:0;
+    background:
+        radial-gradient(circle at center,rgba(0,0,0,.05),rgba(0,0,0,.82)),
+        linear-gradient(to bottom,rgba(0,0,0,.25),rgba(0,0,0,.78));
+}
+
+.hero-content{
+    position:absolute;
+    z-index:5;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:min(900px,92%);
+    text-align:center;
+}
+
+.eyebrow{
+    color:#c9a96b;
+    font-size:.78rem;
+    letter-spacing:.24em;
+    margin-bottom:18px;
+    text-transform:uppercase;
+}
+
+.hero-content h1{
+    font-size:clamp(2.4rem,8vw,5.8rem);
+    line-height:1;
+    color:#eee4d1;
+    text-shadow:0 4px 25px #000;
+}
+
+.hero-content h1 span{
+    color:#b88a45;
+}
+
+.hero-subtitle{
+    margin:22px auto 10px;
+    max-width:650px;
+    font-family:'Cinzel',serif;
+    font-size:clamp(1rem,2.8vw,1.5rem);
+}
+
+.hero-description{
+    max-width:600px;
+    margin:0 auto 28px;
+    color:#c9c0b2;
+    line-height:1.7;
+}
+
+.enter-btn,
+.primary-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    min-height:48px;
+    padding:13px 24px;
+    border:1px solid #9b7540;
+    background:linear-gradient(135deg,#765427,#a57b3e);
+    color:#fff7e9;
+    font-family:'Cinzel',serif;
+    font-weight:700;
+    letter-spacing:.08em;
+    cursor:pointer;
+    transition:.25s ease;
+}
+
+.enter-btn:hover,
+.primary-btn:hover{
+    transform:translateY(-2px);
+    filter:brightness(1.15);
+}
+
+.enter-hint{
+    margin-top:16px;
+    font-size:.75rem;
+    color:#aaa092;
+    letter-spacing:.08em;
+}
+
+.warm-warning{
+    margin-top:20px;
+    font-family:'Cinzel',serif;
+    color:#c7a76c;
+    font-size:.9rem;
+    font-style:italic;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.site-header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(8,6,4,.94);
+    border-bottom:1px solid rgba(183,139,72,.18);
+    backdrop-filter:blur(10px);
+}
+
+.header-inner{
+    width:min(1200px,94%);
+    margin:auto;
+    min-height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.brand{
+    font-family:'Cinzel',serif;
+    color:#d4ae6d;
+    font-weight:700;
+    letter-spacing:.09em;
+    white-space:nowrap;
+}
+
+.main-nav{
+    display:flex;
+    gap:20px;
+    overflow-x:auto;
+    scrollbar-width:none;
+}
+
+.main-nav::-webkit-scrollbar{
+    display:none;
+}
+
+.main-nav a{
+    white-space:nowrap;
+    font-size:.76rem;
+    color:#bdb3a4;
+    transition:.2s;
+}
+
+.main-nav a:hover{
+    color:#d4ae6d;
+}
+
+/* =========================
+   CONTEÚDO
+========================= */
+
+.main-room{
+    display:none;
+    min-height:100vh;
+}
+
+.main-room.visible{
+    display:block;
+}
+
+.hero-room{
+    position:relative;
+    min-height:min(78vh,720px);
+    overflow:hidden;
+    background:#050403;
+}
+
+.hero-room iframe{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    border:0;
+    pointer-events:none;
+}
+
+.hero-room::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(to bottom,rgba(0,0,0,.05),rgba(0,0,0,.8)),
+        linear-gradient(to right,rgba(0,0,0,.4),transparent 60%);
+    pointer-events:none;
+}
+
+.hero-room-content{
+    position:absolute;
+    z-index:3;
+    left:6%;
+    bottom:10%;
+    max-width:680px;
+}
+
+.hero-room-content h2{
+    font-size:clamp(2rem,6vw,4.6rem);
+    margin-bottom:15px;
+}
+
+.hero-room-content p{
+    color:#d0c6b7;
+    line-height:1.7;
+}
+
+.section{
+    width:min(1180px,92%);
+    margin:0 auto;
+    padding:72px 0;
+}
+
+.section-header{
+    margin-bottom:30px;
+}
+
+.section-kicker{
+    color:#ad8348;
+    font-size:.73rem;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    margin-bottom:9px;
+}
+
+.section-title{
+    font-size:clamp(1.8rem,4vw,3rem);
+}
+
+.section-subtitle{
+    margin-top:12px;
+    color:#a99f91;
+    line-height:1.7;
+    max-width:760px;
+}
+
+/* =========================
+   SALÕES
+========================= */
+
+.saloes-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+}
+
+.card{
+    min-height:210px;
+    padding:23px;
+    background:
+        linear-gradient(145deg,rgba(37,28,20,.92),rgba(13,10,7,.98));
+    border:1px solid rgba(186,145,79,.17);
+    position:relative;
+    overflow:hidden;
+    transition:.25s ease;
+}
+
+.card::after{
+    content:"";
+    position:absolute;
+    width:100px;
+    height:100px;
+    right:-45px;
+    bottom:-45px;
+    border-radius:50%;
+    background:rgba(180,130,60,.06);
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    border-color:rgba(186,145,79,.42);
+}
+
+.card-label{
+    color:#a9844d;
+    font-size:.7rem;
+    letter-spacing:.15em;
+    text-transform:uppercase;
+    margin-bottom:13px;
+}
+
+.card h3{
+    font-size:1.15rem;
+    margin-bottom:12px;
+}
+
+.card p{
+    color:#aaa195;
+    line-height:1.65;
+    font-size:.92rem;
+}
+
+/* =========================
+   CONTOS
+========================= */
+
+.contos-list{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.conto-item{
+    padding:24px;
+    background:rgba(24,18,13,.78);
+    border:1px solid rgba(186,145,79,.14);
+    cursor:pointer;
+    transition:.25s;
+}
+
+.conto-item:hover{
+    background:rgba(36,27,19,.9);
+    border-color:rgba(186,145,79,.35);
+}
+
+.conto-label{
+    color:#aa8146;
+    font-size:.7rem;
+    text-transform:uppercase;
+    letter-spacing:.13em;
+    margin-bottom:10px;
+}
+
+.conto-item h3{
+    font-size:1.15rem;
+    margin-bottom:9px;
+}
+
+.conto-item p{
+    color:#aaa095;
+    line-height:1.65;
+}
+
+/* =========================
+   CANECA
+========================= */
+
+.product-section{
+    background:
+        radial-gradient(circle at center,rgba(112,77,31,.12),transparent 55%);
+}
+
+.product-box{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:38px;
+    align-items:center;
+}
+
+.product-copy h2{
+    font-size:clamp(1.8rem,4vw,3rem);
+    margin-bottom:12px;
+}
+
+.product-copy h3{
+    color:#c59b5a;
+    font-size:1rem;
+    margin-bottom:20px;
+}
+
+.product-copy p{
+    color:#afa498;
+    line-height:1.8;
+    margin-bottom:22px;
+}
+
+.affiliate-note{
+    margin-top:12px;
+    color:#80776c;
+    font-size:.72rem;
+    line-height:1.6;
+}
+
+.carousel{
+    position:relative;
+    overflow:hidden;
+    background:#0b0907;
+    border:1px solid rgba(186,145,79,.18);
+}
+
+.carousel-track{
+    display:flex;
+    transition:transform .35s ease;
+}
+
+.slide{
+    min-width:100%;
+}
+
+.slide img{
+    width:100%;
+    aspect-ratio:4/3;
+    object-fit:cover;
+}
+
+.carousel-btn{
+    position:absolute;
+    z-index:4;
+    top:50%;
+    transform:translateY(-50%);
+    width:42px;
+    height:42px;
+    border:1px solid rgba(255,255,255,.25);
+    background:rgba(0,0,0,.6);
+    color:white;
+    cursor:pointer;
+}
+
+.carousel-btn.prev{
+    left:12px;
+}
+
+.carousel-btn.next{
+    right:12px;
+}
+
+/* =========================
+   ARTE / VOCÊ SABIA
+========================= */
+
+.info-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:13px;
+}
+
+.info-card{
+    padding:20px;
+    background:#15100c;
+    border:1px solid rgba(186,145,79,.13);
+}
+
+.info-card h3{
+    font-size:1rem;
+    margin-bottom:10px;
+}
+
+.info-card p{
+    color:#9e958a;
+    font-size:.88rem;
+    line-height:1.6;
+}
+
+.concept-art{
+    text-align:center;
+}
+
+.concept-art img{
+    max-width:850px;
+    width:100%;
+    margin:auto;
+    border:1px solid rgba(186,145,79,.2);
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:500;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    background:rgba(0,0,0,.88);
+    padding:20px;
+}
+
+.modal.active{
+    display:flex;
+}
+
+.modal-content{
+    width:min(1000px,100%);
+    aspect-ratio:16/9;
+    position:relative;
+    background:#050403;
+}
+
+.modal-content iframe{
+    width:100%;
+    height:100%;
+    border:0;
+}
+
+.close-modal{
+    position:absolute;
+    right:-5px;
+    top:-48px;
+    width:40px;
+    height:40px;
+    background:#17100b;
+    border:1px solid #80613a;
+    color:white;
+    cursor:pointer;
+    font-size:1.3rem;
+}
+
+/* =========================
+   ÁUDIO
+========================= */
+
+.audio-player{
+    position:fixed;
+    right:15px;
+    bottom:15px;
+    z-index:200;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding:8px 11px;
+    background:rgba(8,6,4,.94);
+    border:1px solid rgba(186,145,79,.25);
+    box-shadow:0 5px 25px rgba(0,0,0,.45);
+}
+
+.audio-player button{
+    width:34px;
+    height:34px;
+    background:#241a10;
+    border:1px solid rgba(186,145,79,.35);
+    color:#d5b276;
+    cursor:pointer;
+}
+
+#volumeSlider{
+    width:90px;
+    accent-color:#b48a4b;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+footer{
+    border-top:1px solid rgba(186,145,79,.15);
+    padding:55px 0 95px;
+    background:#070504;
+}
+
+.footer-inner{
+    width:min(1180px,92%);
+    margin:auto;
+    display:grid;
+    grid-template-columns:1.3fr 1fr 1fr 1fr;
+    gap:30px;
+}
+
+.footer-column h3{
+    font-size:.9rem;
+    color:#c6a164;
+    margin-bottom:15px;
+}
+
+.footer-column p,
+.footer-column a{
+    color:#81786d;
+    font-size:.83rem;
+    line-height:1.8;
+}
+
+.footer-column a{
+    display:block;
+}
+
+.footer-column a:hover{
+    color:#c6a164;
+}
+
+.socials{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+
+.socials a{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:38px;
+    height:38px;
+    border:1px solid rgba(186,145,79,.25);
+    color:#b48a4b;
+}
+
+.footer-bottom{
+    width:min(1180px,92%);
+    margin:35px auto 0;
+    padding-top:20px;
+    border-top:1px solid rgba(255,255,255,.06);
+    text-align:center;
+    color:#625b53;
+    font-size:.72rem;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media(max-width:950px){
+    .saloes-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    .hero-hint { margin-top: 20px; font-size: 0.75rem; color: #ccc; letter-spacing: 1px; text-shadow: 0 2px 8px rgba(0,0,0,0.9); }
-
-    /* SEÇÃO PRINCIPAL (TAVERNA ABERTA) */
-    .main-room { position: relative; min-height: 100vh; display: none; }
-    .main-room.visible { display: block; }
-
-    .hero-room {
-      position: relative;
-      height: 100vh;
-      width: 100vw;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-end;
-      text-align: center;
-    }
-    .hero-room iframe {
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 100vw; height: 56.25vw;
-      min-height: 100vh; min-width: 177.77vh;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: 0;
-      border: none;
-    }
-    .hero-room-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 75%);
-      z-index: 1;
-    }
-    .hero-room-content {
-      position: relative;
-      z-index: 2;
-      padding: 60px 20px 50px 20px;
-      width: 100%;
-    }
-    .hero-room-content h2 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      letter-spacing: 2px;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-    }
-    .btn-listen {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: #c9a227;
-      color: #0a0a0a;
-      padding: 15px 36px;
-      border: none;
-      border-radius: 30px;
-      font-family: 'Cinzel', serif;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s;
-      margin-bottom: 35px;
-      animation: pulse-gold 2s infinite;
-    }
-    .btn-listen:hover { background: #d4af37; transform: scale(1.03); }
-    .scroll-arrows {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      color: #c9a227;
-      font-size: 1.4rem;
-      animation: bounce 2s infinite;
-    }
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0); opacity: 0.7; }
-      50% { transform: translateY(10px); opacity: 1; }
+    .info-grid{
+        grid-template-columns:repeat(2,1fr);
     }
 
-    section { padding: 60px 20px; max-width: 1100px; margin: 0 auto; }
-    .section-title { font-size: 1.8rem; margin-bottom: 10px; text-align: center; }
-    .section-subtitle { text-align: center; color: #aaa; margin-bottom: 40px; font-size: 0.95rem; }
+    .footer-inner{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
 
-    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-    .card {
-      background: rgba(139,0,0,0.08);
-      border: 1px solid rgba(139,0,0,0.5);
-      border-radius: 10px;
-      padding: 22px;
-      transition: all 0.3s;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-      cursor: pointer;
-    }
-    .card:hover { border-color: #8b0000; transform: translateY(-3px); box-shadow: 0 6px 25px rgba(139,0,0,0.3); }
-    .card-tag {
-      display: inline-block;
-      font-size: 0.75rem;
-      color: #c9a227;
-      border: 1px solid rgba(201,162,39,0.4);
-      border-radius: 20px;
-      padding: 3px 12px;
-      margin-bottom: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .card h3 { font-size: 1.2rem; margin-bottom: 10px; }
-    .card p { font-size: 0.9rem; color: #bbb; margin-bottom: 15px; }
-    .card a { color: #c9a227; text-decoration: none; font-weight: 500; font-size: 0.9rem; }
-
-    .contos-list { display: flex; flex-direction: column; gap: 18px; }
-    .conto-item {
-      background: rgba(139,0,0,0.06);
-      border: 1px solid rgba(139,0,0,0.4);
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    }
-    .conto-item h3 { font-size: 1.15rem; margin-bottom: 8px; }
-    .conto-item p { font-size: 0.9rem; color: #bbb; margin-bottom: 12px; }
-    .conto-item a { color: #c9a227; text-decoration: none; font-weight: 500; font-size: 0.9rem; }
-    .conto-item a:hover { text-decoration: underline; }
-
-    /* CARROSSEL */
-    .carrossel-container {
-      position: relative;
-      margin: 20px 0;
-      background: #000;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .carrossel-slides { display: flex; transition: transform 0.4s ease; }
-    .carrossel-slide { min-width: 100%; position: relative; }
-    .carrossel-slide img { width: 100%; height: auto; display: block; }
-    .carrossel-legenda {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-      color: #e0e0e0;
-      padding: 30px 20px 15px 20px;
-      font-size: 0.9rem;
-      font-style: italic;
-      text-align: center;
-    }
-    .carrossel-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.6);
-      color: #c9a227;
-      border: 1px solid #c9a227;
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      font-size: 1.2rem;
-      cursor: pointer;
-      z-index: 10;
-    }
-    .carrossel-btn.prev { left: 10px; }
-    .carrossel-btn.next { right: 10px; }
-    .carrossel-indicadores {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 0;
-      background: rgba(0,0,0,0.8);
-    }
-    .carrossel-indicadores span {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: rgba(201,162,39,0.4);
-      cursor: pointer;
-    }
-    .carrossel-indicadores span.active { background: #c9a227; }
-
-    .btn-afiliado {
-      display: inline-block;
-      background: #8b0000;
-      color: #fff;
-      padding: 14px 30px;
-      border: 1px solid #c9a227;
-      border-radius: 30px;
-      font-family: 'Cinzel', serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      text-decoration: none;
-      margin-top: 20px;
-      transition: all 0.3s;
-    }
-    .btn-afiliado:hover { background: #a00000; transform: scale(1.03); }
-
-    .audio-conto {
-      margin-top: 20px;
-      padding: 15px;
-      background: rgba(201,162,39,0.1);
-      border: 1px solid rgba(201,162,39,0.3);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-    .audio-conto button {
-      background: #c9a227;
-      color: #0a0a0a;
-      border: none;
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      font-size: 1.1rem;
-      cursor: pointer;
-    }
-    .audio-conto span { color: #c9a227; font-size: 0.9rem; font-style: italic; }
-
-    footer { background: #050505; border-top: 1px solid rgba(201,162,39,0.2); padding: 40px 20px; text-align: center; }
-    .copyright { font-size: 0.8rem; color: #666; margin-top: 15px; }
-
-    .modal-ambiente {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: #000;
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-    }
-    .modal-ambiente.active { display: flex; }
-    .modal-ambiente iframe { width: 100vw; height: 100vh; border: none; }
-    .btn-skip {
-      position: absolute;
-      bottom: 30px;
-      right: 20px;
-      background: rgba(201,162,39,0.9);
-      color: #0a0a0a;
-      border: none;
-      padding: 10px 22px;
-      border-radius: 25px;
-      font-family: 'Cinzel', serif;
-      font-size: 0.9rem;
-      font-weight: 700;
-      cursor: pointer;
-      z-index: 10000;
+@media(max-width:680px){
+    .header-inner{
+        min-height:58px;
     }
 
-    /* Player de Música Ambiente Flutuante */
-    .audio-player {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: rgba(10,10,10,0.9);
-      border: 1px solid #c9a227;
-      border-radius: 30px;
-      padding: 8px 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      z-index: 100;
+    .brand{
+        font-size:.78rem;
     }
-    .audio-player button { background: transparent; border: none; color: #c9a227; font-size: 1.1rem; cursor: pointer; }
-    .audio-player .slider {
-      -webkit-appearance: none;
-      width: 80px; height: 3px;
-      background: rgba(201,162,39,0.3);
-      border-radius: 3px; outline: none;
+
+    .main-nav{
+        gap:14px;
     }
-    .audio-player .slider::-webkit-slider-thumb {
-      -webkit-appearance: none; width: 12px; height: 12px; border-radius: 50%; background: #c9a227; cursor: pointer;
+
+    .main-nav a{
+        font-size:.68rem;
     }
-    .audio-player span { color: #c9a227; font-size: 0.9rem; }
-  </style>
+
+    .hero-room{
+        min-height:62vh;
+    }
+
+    .hero-room-content{
+        left:5%;
+        right:5%;
+        bottom:8%;
+    }
+
+    .saloes-grid,
+    .contos-list,
+    .product-box{
+        grid-template-columns:1fr;
+    }
+
+    .info-grid{
+        grid-template-columns:1fr;
+    }
+
+    .section{
+        padding:55px 0;
+    }
+
+    .footer-inner{
+        grid-template-columns:1fr;
+    }
+
+    .audio-player{
+        right:10px;
+        left:10px;
+        justify-content:center;
+    }
+}
+</style>
 </head>
+
 <body>
 
-  <!-- Elementos de áudio locais e player oculto de música ambiente -->
-  <audio id="boasVindas" src="boas_vindas.mp3" preload="auto"></audio>
-  <audio id="audioRuna" src="runa_historia_completa_v1.mp3" preload="auto"></audio>
-  <div id="musicaAmbiente" style="display:none;"></div>
+<!-- =========================
+     ÁUDIOS
+========================= -->
 
-  <div class="modal-ambiente" id="modalAmbiente">
-    <iframe id="ambienteFrame" src="" allow="autoplay; encrypted-media"></iframe>
-    <button class="btn-skip" onclick="fecharAmbiente()">Pular →</button>
-  </div>
+<audio id="boasVindas" preload="auto">
+    <source src="boas_vindas.mp3" type="audio/mpeg">
+</audio>
 
-  <!-- Capa Estática -->
-  <div class="hero-overlay-container" id="heroOverlay">
+<audio id="audioRuna" preload="auto">
+    <source src="runa_historia_completa_v1.mp3" type="audio/mpeg">
+</audio>
+
+<iframe
+    id="musicaAmbiente"
+    width="0"
+    height="0"
+    style="display:none"
+    allow="autoplay">
+</iframe>
+
+<!-- =========================
+     ENTRADA
+========================= -->
+
+<section id="heroOverlay" class="hero-overlay-container">
+
+    <div class="hero-image-fallback"></div>
+
+    <div id="heroVideoBg" class="hero-video-bg">
+        <iframe
+            id="videoFrente"
+            src="https://www.youtube.com/embed/ma_aCbNxNQc?enablejsapi=1&controls=0&rel=0&modestbranding=1&playsinline=1"
+            allow="autoplay; encrypted-media"
+            allowfullscreen>
+        </iframe>
+    </div>
+
     <div class="hero-overlay-dark"></div>
+
     <div class="hero-content">
-      <h1>Taverna Fenrir</h1>
-      <h2>RUNA</h2>
-      <p>O fogo está aceso e teu lugar está guardado.</p>
-      <button class="btn-enter" onclick="entrarNaTaverna()">ENTRAR NA TAVERNA</button>
-      <div class="hero-hint">Toque para atravessar · a porta só abre ao teu chamado</div>
-    </div>
-  </div>
 
-  <!-- Sala Principal (Hero com o Vídeo da Taverna) -->
-  <div class="main-room" id="mainRoom">
-    <div class="hero-room">
-      <div id="playerTaverna"></div>
-      <div class="hero-room-overlay"></div>
-      <div class="hero-room-content">
-        <h2>A casa de Runa está aberta.</h2>
-        <button class="btn-listen" onclick="document.getElementById('contos').scrollIntoView({behavior:'smooth'})">
-          Quer ouvir uma história?
+        <div class="eyebrow">TAVERNA FENRIR · A FRENTE NA NEVE</div>
+
+        <h1>
+            TAVERNA <span>FENRIR</span>
+        </h1>
+
+        <div class="hero-subtitle">
+            O fogo está aceso e teu lugar está guardado. Entra.
+        </div>
+
+        <p class="hero-description">
+            A casa de Runa está aberta.
+        </p>
+
+        <button
+            class="enter-btn"
+            onclick="entrarNaTaverna()">
+            ENTRAR NA TAVERNA
         </button>
-        <div class="scroll-arrows">
-          <span>⌄</span>
-          <span>⌄</span>
+
+        <div class="enter-hint">
+            Toque para atravessar · a porta só abre ao teu chamado
         </div>
-      </div>
+
+        <div class="warm-warning">
+            Eu não disse que era quentinho.
+        </div>
+
+    </div>
+</section>
+
+<!-- =========================
+     SALÃO PRINCIPAL
+========================= -->
+
+<main id="mainRoom" class="main-room">
+
+<header class="site-header">
+    <div class="header-inner">
+
+        <a href="#topo" class="brand">
+            TAVERNA FENRIR · RUNA
+        </a>
+
+        <nav class="main-nav">
+            <a href="#contos">Histórias</a>
+            <a href="#mitologia">Mitologia</a>
+            <a href="#universo">Universo Viking</a>
+            <a href="#reliquias">Relíquias</a>
+            <a href="#sobre-runa">Sobre a Runa</a>
+        </nav>
+
+    </div>
+</header>
+
+<div id="topo"></div>
+
+<!-- =========================
+     HERO DA RUNA
+========================= -->
+
+<section class="hero-room">
+
+    <iframe
+        id="videoRunaBalcao"
+        src="https://www.youtube.com/embed/iQ_rePerQKo?enablejsapi=1&autoplay=0&mute=1&controls=0&loop=1&playlist=iQ_rePerQKo&rel=0&modestbranding=1&playsinline=1"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+    </iframe>
+
+    <div class="hero-room-content">
+        <div class="section-kicker">JUNTO AO FOGO</div>
+
+        <h2>A casa de Runa está aberta.</h2>
+
+        <p>
+            Histórias, mitos e o universo nórdico à luz do fogo.
+            Senta. A caneca chega depois da história.
+        </p>
     </div>
 
-    <section id="salões">
-      <h2 class="section-title">Nove portas, uma taverna</h2>
-      <p class="section-subtitle">Comece pelas histórias e pelos mitos.</p>
-      <div class="cards-grid">
-        <div class="card" onclick="document.getElementById('contos').scrollIntoView({behavior:'smooth'})">
-          <span class="card-tag">Contos</span>
-          <h3>Histórias da Runa</h3>
-          <p>Noites junto ao fogo: batalhas, juramentos e a caneca que nunca esfria.</p>
-          <a>Entrar →</a>
-        </div>
-        <div class="card" onclick="abrirAmbiente('0Gs4CzPLMwM')">
-          <span class="card-tag">Mitos</span>
-          <h3>Mitologia Nórdica</h3>
-          <p>Yggdrasil, os Nove Mundos, Fenrir e os deuses que observam a taverna.</p>
-          <a>Entrar →</a>
-        </div>
-        <div class="card" onclick="abrirAmbiente('ma_aCbNxNQc')">
-          <span class="card-tag">Mundo</span>
-          <h3>Universo Viking</h3>
-          <p>Rotas, clãs, navios e costumes que moldaram a guerreira taberneira.</p>
-          <a>Entrar →</a>
-        </div>
-        <div class="card" onclick="abrirAmbiente('s971odSFqck')">
-          <span class="card-tag">Sala de relíquias</span>
-          <h3>Anéis & Pingentes</h3>
-          <p>Peças ligadas às histórias. Recomendações externas chegarão aqui.</p>
-          <a>Entrar →</a>
-        </div>
-        <div class="card" onclick="abrirAmbiente('iQ_rePerQKo')">
-          <span class="card-tag">Do balcão</span>
-          <h3>Canecas & Utensílios</h3>
-          <p>Do balcão da taverna para a sua mesa.</p>
-          <a>Entrar →</a>
-        </div>
-        <div class="card" onclick="abrirAmbiente('6IHvHI4NfpA')">
-          <span class="card-tag">Vestir</span>
-          <h3>Camisetas</h3>
-          <p>Tecido de estrada: símbolos da casa para usar fora da taverna.</p>
-          <a>Entrar →</a>
-        </div>
-        <div class="card" onclick="abrirAmbiente('Z38aRgWU9Wg')">
-          <span class="card-tag">Vestir</span>
-          <h3>Casacos</h3>
-          <p>Contra a neve lá fora: camadas quentes com espírito do norte.</p>
-          <a>Entrar →</a>
-        </div>
-        <div class="card" onclick="abrirAmbiente('Ttdxmb8-iw8')">
-          <span class="card-tag">Som</span>
-          <h3>Rock & Metal</h3>
-          <p>A trilha da casa: riffs, tambores de guerra e coros de salão.</p>
-          <a>Entrar →</a>
-        </div>
-        <div class="card" onclick="document.getElementById('arte').scrollIntoView({behavior:'smooth'})">
-          <span class="card-tag">Bastidores</span>
-          <h3>Arte Conceitual</h3>
-          <p>O processo criativo por trás da Runa — esboços e estudos.</p>
-          <a>Entrar →</a>
-        </div>
-      </div>
-    </section>
+</section>
 
-    <section id="contos">
-      <h2 class="section-title">Desta noite: contos do fogo</h2>
-      <p class="section-subtitle">Trechos curtos para ler no celular, entre uma caneca e outra.</p>
-      <div class="contos-list">
-        <div class="conto-item">
-          <h3>Sobre a Runa</h3>
-          <p>A história completa dela, contada por ela mesma, atrás do balcão.</p>
-          <div class="audio-conto">
-            <button onclick="toggleAudioRuna()" id="btnAudioRuna">▶</button>
-            <span>Ouça a Runa contar a própria história</span>
-          </div>
-        </div>
+<!-- =========================
+     SALÕES
+========================= -->
 
-        <div class="conto-item">
-          <h3>Bardo e a sua caneca</h3>
-          <p>O velho cliente que tem uma caneca específica e uma memória que carrega.</p>
-          <div class="carrossel-container">
-            <div class="carrossel-slides" id="carrosselSlides">
-              <div class="carrossel-slide"><img src="Caneca bardo1.png" alt="Caneca 1"><div class="carrossel-legenda">A Caneca do Bardo — digna de uma saga nórdica.</div></div>
-              <div class="carrossel-slide"><img src="Caneca bardo2.png" alt="Caneca 2"><div class="carrossel-legenda">Feita para durar. Do balcão da taverna para a sua mesa.</div></div>
-              <div class="carrossel-slide"><img src="Caneca bardo3.png" alt="Caneca 3"><div class="carrossel-legenda">Cada peça carrega a memória de quem a segura.</div></div>
-              <div class="carrossel-slide"><img src="Caneca bardo4.jpg" alt="Caneca 4"><div class="carrossel-legenda">Runa servindo, atrás do balcão.</div></div>
+<section class="section" id="saloes">
+
+    <div class="section-header">
+        <div class="section-kicker">SALÕES</div>
+
+        <h2 class="section-title">
+            Nove portas, uma taverna
+        </h2>
+
+        <p class="section-subtitle">
+            Comece pelas histórias e pelos mitos. As salas de relíquias
+            guardam lugar para recomendações futuras — com links externos
+            e o conto de cada peça.
+        </p>
+    </div>
+
+    <div class="saloes-grid">
+
+        <a class="card" href="#contos">
+            <div class="card-label">Contos</div>
+            <h3>Histórias da Runa</h3>
+            <p>
+                Noites junto ao fogo: batalhas, juramentos e a caneca que nunca esfria.
+            </p>
+        </a>
+
+        <a class="card" id="mitologia" href="#contos">
+            <div class="card-label">Mitos</div>
+            <h3>Mitologia Nórdica</h3>
+            <p>
+                Yggdrasil, os Nove Mundos, Fenrir e os deuses que observam a taverna.
+            </p>
+        </a>
+
+        <a class="card" id="universo" href="#sabia">
+            <div class="card-label">Mundo</div>
+            <h3>Universo Viking</h3>
+            <p>
+                Rotas, clãs, navios e costumes que moldaram a guerreira taberneira.
+            </p>
+        </a>
+
+        <a class="card" href="#reliquias">
+            <div class="card-label">Sala de relíquias</div>
+            <h3>Anéis &amp; Pingentes</h3>
+            <p>
+                Peças ligadas às histórias. Recomendações externas chegarão aqui.
+            </p>
+        </a>
+
+        <a class="card" href="#reliquias">
+            <div class="card-label">Do balcão</div>
+            <h3>Canecas &amp; Utensílios</h3>
+            <p>
+                Madeira, ferro e fogo — o kit da taverna ideal, contado em histórias.
+            </p>
+        </a>
+
+        <a class="card" href="#reliquias">
+            <div class="card-label">Vestir</div>
+            <h3>Camisetas</h3>
+            <p>
+                Tecido de estrada: símbolos da casa para usar fora da taverna.
+            </p>
+        </a>
+
+        <a class="card" href="#reliquias">
+            <div class="card-label">Vestir</div>
+            <h3>Casacos</h3>
+            <p>
+                Contra a neve lá fora: camadas quentes com espírito do norte.
+            </p>
+        </a>
+
+        <a class="card" href="#musica">
+            <div class="card-label">Som</div>
+            <h3>Rock &amp; Metal</h3>
+            <p>
+                A trilha da casa: riffs, tambores de guerra e coros de salão.
+            </p>
+        </a>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     CONTOS
+========================= -->
+
+<section class="section" id="contos">
+
+    <div class="section-header">
+        <div class="section-kicker">JUNTO AO FOGO</div>
+
+        <h2 class="section-title">
+            Desta noite: contos do fogo
+        </h2>
+
+        <p class="section-subtitle">
+            Trechos curtos para ler no celular, entre uma caneca e outra.
+        </p>
+    </div>
+
+    <div class="contos-list">
+
+        <article class="conto-item">
+            <div class="conto-label">Conto I · Noite de neve</div>
+            <h3>A caneca que nunca esfria</h3>
+            <p>
+                Um viajante duvidou do fogo da casa. Runa serviu, sorriu —
+                e a caneca ardeu em chamas azuis.
+            </p>
+        </article>
+
+        <article class="conto-item" id="sobre-runa">
+            <div class="conto-label">Sobre a Runa</div>
+            <h3>A guerreira que virou taberneira</h3>
+            <p>
+                Depois das batalhas e da vingança, Runa descobriu que algumas
+                histórias precisam de um lugar onde possam descansar.
+            </p>
+        </article>
+
+        <article class="conto-item">
+            <div class="conto-label">O conto dos anões</div>
+            <h3>Brokkr e Eitri</h3>
+            <p>
+                Runa conta a história dos anões que forjaram o Mjolnir.
+                E diz por que carrega o pingente no peito.
+            </p>
+        </article>
+
+        <article class="conto-item">
+            <div class="conto-label">Conto V · O cliente fiel</div>
+            <h3>Bardo e a sua caneca</h3>
+            <p>
+                Toda quinta ele senta no mesmo canto e pede hidromel na caneca
+                dele. Não aceita outra — e tem um motivo.
+            </p>
+        </article>
+
+        <article class="conto-item">
+            <div class="conto-label">Conto II · A porta-raiz</div>
+            <h3>Juramento sob Yggdrasil</h3>
+            <p>
+                Antes de abrir a taverna, Runa gravou uma runa na raiz da árvore
+                e jurou: nenhum ferido fica lá fora.
+            </p>
+        </article>
+
+        <article class="conto-item">
+            <div class="conto-label">Conto III · O inverno do lobo</div>
+            <h3>Neve e sangue na porta</h3>
+            <p>
+                Na noite em que Fenrir uivou, Runa trocou a espada pelo avental —
+                sem pousar nenhuma das duas.
+            </p>
+        </article>
+
+        <article class="conto-item">
+            <div class="conto-label">Conto IV · A lição da vidente</div>
+            <h3>Como Runa aprendeu as runas</h3>
+            <p>
+                Antes da espada, a faca de entalhe: a vidente do bando ensinou
+                Runa a ler as runas na madeira, na neve e no silêncio.
+            </p>
+        </article>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     CANECA DO BARDO
+========================= -->
+
+<section class="section product-section" id="reliquias">
+
+    <div class="product-box">
+
+        <div class="product-copy">
+
+            <div class="section-kicker">
+                A CANECA DO BARDO
             </div>
-            <button class="carrossel-btn prev" onclick="mudarSlide(-1)">‹</button>
-            <button class="carrossel-btn next" onclick="mudarSlide(1)">›</button>
-            <div class="carrossel-indicadores" id="carrosselIndicadores">
-              <span class="active" onclick="irParaSlide(0)"></span>
-              <span onclick="irParaSlide(1)"></span>
-              <span onclick="irParaSlide(2)"></span>
-              <span onclick="irParaSlide(3)"></span>
-            </div>
-          </div>
-          <a href="https://meli.la/1AD7Wh8" target="_blank" class="btn-afiliado">Levar esta relíquia →</a>
+
+            <h2>
+                Digna de uma saga nórdica
+            </h2>
+
+            <h3>
+                A relíquia de quem conhece o caminho até o balcão.
+            </h3>
+
+            <p>
+                A caneca que o velho Bardo carrega há dez invernos —
+                agora em fotos da casa. Deslize para ver e, se quiser uma igual,
+                o botão leva ao Mercado Livre.
+            </p>
+
+            <a
+                class="primary-btn"
+                href="https://meli.la/1AD7Wh8"
+                target="_blank"
+                rel="noopener noreferrer">
+                Ver a caneca no Mercado Livre
+            </a>
+
+            <p class="affiliate-note">
+                Link externo de afiliado — abre em nova aba.
+                A taverna conta a história; a compra acontece lá fora.
+            </p>
+
         </div>
-      </div>
-    </section>
 
-    <footer>
-      <div class="copyright">© Taverna Fenrir. Conto de fantasia.</div>
-    </footer>
-  </div>
+        <div class="carousel">
 
-  <!-- Widget de controle da música ambiente -->
-  <div class="audio-player">
-    <button id="btnPlay" onclick="toggleMusic()">❚❚</button>
-    <input type="range" class="slider" id="volumeSlider" min="0" max="100" value="20" oninput="ajustarVolume(this.value)">
-    <span>♪</span>
-  </div>
+            <div id="carouselTrack" class="carousel-track">
 
-  <script src="https://www.youtube.com/iframe_api"></script>
-  <script>
-    // IDs dos vídeos
-    const VIDEO_FRENTE = "ma_aCbNxNQc";   // Vídeo de transição (porta abrindo)
-    const VIDEO_BALCAO = "iQ_rePerQKo";   // Vídeo da Hero na taverna aberta
-    const VIDEO_MUSICA = "2zLQ-JMOB6Q";   // Trilha sonora ambiente
+                <div class="slide">
+                    <img
+                        src="https://ym8agb.wisylink.com/"
+                        alt="Caneca do Bardo — imagem da taverna"
+                        onerror="this.src='Caneca bardo1.png'">
+                </div>
 
-    let playerTaverna, playerMusica, playerAmbiente;
-    let audioRunaTocando = false;
+                <div class="slide">
+                    <img
+                        src="Caneca bardo2.png"
+                        alt="Caneca do Bardo — madeira, ferro e aço">
+                </div>
 
-    function onYouTubeIframeAPIReady() {
-      // Player principal da Taverna (porta e depois balcão)
-      playerTaverna = new YT.Player('playerTaverna', {
-        height: '100%', width: '100%',
-        videoId: VIDEO_FRENTE,
-        playerVars: { 'autoplay': 0, 'controls': 0, 'modestbranding': 1, 'playsinline': 1, 'rel': 0, 'mute': 1 },
-        events: { 'onStateChange': onTavernaStateChange }
-      });
+                <div class="slide">
+                    <img
+                        src="Caneca bardo3.png"
+                        alt="Caneca do Bardo junto ao fogo">
+                </div>
 
-      // Player dedicado à música ambiente imersiva
-      playerMusica = new YT.Player('musicaAmbiente', {
-        height: '0', width: '0',
-        videoId: VIDEO_MUSICA,
-        playerVars: { 'autoplay': 0, 'controls': 0, 'modestbranding': 1, 'loop': 1, 'playlist': VIDEO_MUSICA, 'playsinline': 1 },
-        events: { 
-          'onReady': (e) => {
-            e.target.setVolume(20);
-          }
+                <div class="slide">
+                    <img
+                        src="Caneca bardo4.jpg"
+                        alt="Runa servindo no salão">
+                </div>
+
+            </div>
+
+            <button
+                class="carousel-btn prev"
+                onclick="moverSlide(-1)"
+                aria-label="Imagem anterior">
+                ‹
+            </button>
+
+            <button
+                class="carousel-btn next"
+                onclick="moverSlide(1)"
+                aria-label="Próxima imagem">
+                ›
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     VOCÊ SABIA
+========================= -->
+
+<section class="section" id="sabia">
+
+    <div class="section-header">
+        <div class="section-kicker">PEQUENAS RUNAS</div>
+
+        <h2 class="section-title">
+            Você sabia?
+        </h2>
+
+        <p class="section-subtitle">
+            Fragmentos de conhecimento para carregar da taverna para a estrada.
+        </p>
+    </div>
+
+    <div class="info-grid">
+
+        <article class="info-card">
+            <h3>Yggdrasil</h3>
+            <p>
+                A árvore cósmica ocupa posição central nas narrativas nórdicas
+                sobre os mundos e suas conexões.
+            </p>
+        </article>
+
+        <article class="info-card">
+            <h3>Mjolnir</h3>
+            <p>
+                O martelo de Thor é uma das relíquias mais reconhecidas
+                da tradição mitológica nórdica.
+            </p>
+        </article>
+
+        <article class="info-card">
+            <h3>Fenrir</h3>
+            <p>
+                O lobo ocupa papel importante nas narrativas mitológicas
+                relacionadas aos deuses e ao destino do mundo.
+            </p>
+        </article>
+
+        <article class="info-card">
+            <h3>Runas</h3>
+            <p>
+                Os sistemas rúnicos foram usados historicamente para escrita
+                em diferentes contextos e períodos da Escandinávia.
+            </p>
+        </article>
+
+    </div>
+
+</section>
+
+<!-- =========================
+     ARTE CONCEITUAL
+========================= -->
+
+<section class="section concept-art" id="arte">
+
+    <div class="section-header">
+        <div class="section-kicker">A CASA</div>
+
+        <h2 class="section-title">
+            Arte Conceitual
+        </h2>
+
+        <p class="section-subtitle" style="margin-left:auto;margin-right:auto;">
+            A taverna cresce aos poucos. Cada imagem é uma parte do mundo de Runa.
+        </p>
+    </div>
+
+    <img
+        src="Entrada taverna.jpg"
+        alt="Entrada da Taverna Fenrir">
+
+</section>
+
+<!-- =========================
+     MÚSICA
+========================= -->
+
+<section class="section" id="musica">
+
+    <div class="section-header">
+        <div class="section-kicker">SOM DA CASA</div>
+
+        <h2 class="section-title">
+            Rock &amp; Metal
+        </h2>
+
+        <p class="section-subtitle">
+            A trilha da casa: riffs, tambores de guerra e coros de salão.
+        </p>
+    </div>
+
+</section>
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <div class="footer-inner">
+
+        <div class="footer-column">
+
+            <h3>TAVERNA FENRIR — RUNA</h3>
+
+            <p>
+                Portal narrativo de Runa, guerreira e taberneira.
+                Histórias, mitos e o universo nórdico à luz do fogo.
+            </p>
+
+            <div class="socials">
+
+                <a
+                    href="https://www.instagram.com/runataverna"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram">
+                    IG
+                </a>
+
+                <a
+                    href="https://www.facebook.com/share/18UeoB9QhT/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook">
+                    FB
+                </a>
+
+                <a
+                    href="https://www.tiktok.com/@runa.taverna"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="TikTok">
+                    TK
+                </a>
+
+                <a
+                    href="https://youtube.com/@runatavernafenrir"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="YouTube">
+                    YT
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="footer-column">
+
+            <h3>NARRATIVAS</h3>
+
+            <a href="#contos">Histórias da Runa</a>
+            <a href="#mitologia">Mitologia Nórdica</a>
+            <a href="#universo">Universo Viking</a>
+            <a href="#sobre-runa">Sobre a Runa</a>
+
+        </div>
+
+        <div class="footer-column">
+
+            <h3>A CASA</h3>
+
+            <a href="#reliquias">Anéis &amp; Pingentes</a>
+            <a href="#reliquias">Canecas &amp; Utensílios</a>
+            <a href="#reliquias">Camisetas</a>
+            <a href="#reliquias">Casacos</a>
+            <a href="#musica">Rock &amp; Metal</a>
+
+        </div>
+
+        <div class="footer-column">
+
+            <h3>JUNTO AO FOGO</h3>
+
+            <p>
+                Conta pra Runa o que achou dos contos —
+                ela lê tudo junto ao fogo.
+            </p>
+
+            <a href="mailto:runa.fenrir.oficial@gmail.com">
+                runa.fenrir.oficial@gmail.com
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        TAVERNA FENRIR · RUNA · O fogo permanece aceso.
+    </div>
+
+</footer>
+
+</main>
+
+<!-- =========================
+     MODAL DE AMBIENTES
+========================= -->
+
+<div id="ambienteModal" class="modal">
+
+    <div class="modal-content">
+
+        <button
+            class="close-modal"
+            onclick="fecharAmbiente()"
+            aria-label="Fechar">
+            ×
+        </button>
+
+        <div id="ambientePlayer"></div>
+
+    </div>
+
+</div>
+
+<!-- =========================
+     CONTROLE DE ÁUDIO
+========================= -->
+
+<div class="audio-player">
+
+    <button
+        id="btnPlay"
+        onclick="toggleMusica()"
+        aria-label="Controlar música">
+        ▶
+    </button>
+
+    <input
+        id="volumeSlider"
+        type="range"
+        min="0"
+        max="100"
+        value="20"
+        aria-label="Volume">
+
+</div>
+
+<!-- =========================
+     YOUTUBE API
+========================= -->
+
+<script src="https://www.youtube.com/iframe_api"></script>
+
+<script>
+
+/* =========================================
+   VÍDEOS
+========================================= */
+
+const VIDEO_FRENTE_TAVERNA = "ma_aCbNxNQc";
+const VIDEO_RUNA_BALCAO = "iQ_rePerQKo";
+const VIDEO_MUSICA_AMBIENTE = "2zLQ-JMOB6Q";
+
+let playerFrente = null;
+let playerRuna = null;
+let playerMusica = null;
+let playerAmbiente = null;
+
+let youtubeReady = false;
+let entradaSolicitada = false;
+let tavernaEntrou = false;
+let transicaoConcluida = false;
+
+let musicaIniciada = false;
+let ambientesAbertos = false;
+
+/* =========================================
+   YOUTUBE
+========================================= */
+
+function onYouTubeIframeAPIReady(){
+
+    playerFrente = new YT.Player('videoFrente', {
+
+        videoId: VIDEO_FRENTE_TAVERNA,
+
+        playerVars:{
+            autoplay:0,
+            controls:0,
+            rel:0,
+            modestbranding:1,
+            playsinline:1
+        },
+
+        events:{
+            onReady:function(event){
+                event.target.pauseVideo();
+            },
+            onStateChange:onFrenteStateChange
         }
-      });
+
+    });
+
+    playerRuna = new YT.Player('videoRunaBalcao', {
+
+        videoId: VIDEO_RUNA_BALCAO,
+
+        playerVars:{
+            autoplay:0,
+            controls:0,
+            loop:1,
+            playlist:VIDEO_RUNA_BALCAO,
+            rel:0,
+            modestbranding:1,
+            playsinline:1
+        },
+
+        events:{
+            onReady:function(event){
+                event.target.mute();
+                event.target.pauseVideo();
+            }
+        }
+
+    });
+
+    playerMusica = new YT.Player('musicaAmbiente', {
+
+        videoId: VIDEO_MUSICA_AMBIENTE,
+
+        playerVars:{
+            autoplay:0,
+            controls:0,
+            loop:1,
+            playlist:VIDEO_MUSICA_AMBIENTE,
+            rel:0
+        },
+
+        events:{
+            onReady:function(event){
+                event.target.setVolume(10);
+            }
+        }
+
+    });
+
+    youtubeReady = true;
+
+    if(entradaSolicitada){
+        iniciarEntrada();
+    }
+}
+
+/* =========================================
+   ENTRADA
+========================================= */
+
+function entrarNaTaverna(){
+
+    if(tavernaEntrou){
+        return;
     }
 
-    // Gatilho unificado disparado pelo toque do usuário
-    function entrarNaTaverna() {
-      // 1. Oculta a capa estática e exibe a sala principal
-      document.getElementById('heroOverlay').classList.add('hidden');
-      document.getElementById('mainRoom').classList.add('visible');
+    if(!youtubeReady){
 
-      // 2. Dispara o vídeo da transição (porta da taverna)
-      if (playerTaverna && playerTaverna.playVideo) {
-        playerTaverna.playVideo();
-      }
+        entradaSolicitada = true;
 
-      // 3. Dispara a trilha sonora ambiente de fundo suavemente
-      if (playerMusica && playerMusica.playVideo) {
-        playerMusica.setVolume(20);
+        const btn = document.querySelector('.enter-btn');
+
+        if(btn){
+            btn.textContent = "AQUECENDO O FOGO...";
+        }
+
+        return;
+    }
+
+    iniciarEntrada();
+}
+
+function iniciarEntrada(){
+
+    if(tavernaEntrou){
+        return;
+    }
+
+    tavernaEntrou = true;
+    entradaSolicitada = false;
+
+    const videoBg = document.getElementById('heroVideoBg');
+    const boasVindas = document.getElementById('boasVindas');
+
+    videoBg.style.display = 'block';
+
+    if(playerFrente){
+
+        try{
+            playerFrente.seekTo(0,true);
+            playerFrente.unMute();
+            playerFrente.setVolume(100);
+            playerFrente.playVideo();
+        }catch(error){
+            console.warn("Falha ao iniciar vídeo da entrada:",error);
+        }
+
+    }
+
+    if(boasVindas){
+
+        boasVindas.volume = 0.2;
+
+        boasVindas.currentTime = 0;
+
+        const promessa = boasVindas.play();
+
+        if(promessa){
+            promessa.catch(function(){
+                console.log("Áudio de boas-vindas aguardando permissão do navegador.");
+            });
+        }
+
+    }
+}
+
+/* =========================================
+   FINAL DA PORTA
+========================================= */
+
+function onFrenteStateChange(event){
+
+    if(
+        event.data === YT.PlayerState.ENDED &&
+        !transicaoConcluida
+    ){
+
+        transicaoConcluida = true;
+
+        const heroOverlay = document.getElementById('heroOverlay');
+        const mainRoom = document.getElementById('mainRoom');
+
+        heroOverlay.classList.add('hidden');
+        mainRoom.classList.add('visible');
+
+        if(playerRuna){
+
+            try{
+                playerRuna.mute();
+                playerRuna.playVideo();
+            }catch(error){
+                console.warn("Falha ao iniciar Runa:",error);
+            }
+
+        }
+
+        iniciarMusica();
+    }
+}
+
+/* =========================================
+   MÚSICA AMBIENTE
+========================================= */
+
+function iniciarMusica(){
+
+    if(musicaIniciada){
+        return;
+    }
+
+    musicaIniciada = true;
+
+    if(!playerMusica){
+        return;
+    }
+
+    try{
+
+        playerMusica.setVolume(10);
         playerMusica.playVideo();
+
         document.getElementById('btnPlay').textContent = "❚❚";
-      }
 
-      // 4. Dispara o áudio de boas-vindas local
-      const audio = document.getElementById('boasVindas');
-      if (audio) {
-        audio.volume = 0.3;
-        audio.play().catch(e => console.log("Áudio bloqueado:", e));
-      }
+        setTimeout(function(){
+
+            if(playerMusica){
+
+                playerMusica.setVolume(20);
+
+                document.getElementById('volumeSlider').value = 20;
+            }
+
+        },5000);
+
+    }catch(error){
+
+        console.warn("Falha na música ambiente:",error);
+
+    }
+}
+
+function toggleMusica(){
+
+    if(!playerMusica){
+        return;
     }
 
-    // Monitora o fim do vídeo de porta para carregar a Hero em loop no balcão
-    function onTavernaStateChange(event) {
-      if (event.data === 0 && playerTaverna.getVideoData().video_id === VIDEO_FRENTE) {
-        playerTaverna.loadVideoById({
-          videoId: VIDEO_BALCAO,
-          suggestedQuality: 'hd720'
-        });
-        playerTaverna.setLoop(true);
-      }
-    }
+    const state = playerMusica.getPlayerState();
 
-    // Controles do player de música ambiente
-    function toggleMusic() {
-      const btn = document.getElementById('btnPlay');
-      if (!playerMusica || !playerMusica.getPlayerState) return;
-      if (playerMusica.getPlayerState() === 1) {
+    if(
+        state === YT.PlayerState.PLAYING ||
+        state === YT.PlayerState.BUFFERING
+    ){
+
         playerMusica.pauseVideo();
-        btn.textContent = "▶";
-      } else {
+
+        document.getElementById('btnPlay').textContent = "▶";
+
+    }else{
+
         playerMusica.playVideo();
-        btn.textContent = "❚❚";
-      }
+
+        document.getElementById('btnPlay').textContent = "❚❚";
+
+    }
+}
+
+document
+    .getElementById('volumeSlider')
+    .addEventListener('input',function(){
+
+        if(playerMusica){
+            playerMusica.setVolume(Number(this.value));
+        }
+
+    });
+
+/* =========================================
+   AMBIENTES
+========================================= */
+
+function abrirAmbiente(videoId){
+
+    if(!videoId){
+        return;
     }
 
-    function ajustarVolume(valor) {
-      if (playerMusica && playerMusica.setVolume) {
-        playerMusica.setVolume(valor);
-      }
+    ambientesAbertos = true;
+
+    if(playerRuna){
+        playerRuna.pauseVideo();
     }
 
-    function abrirAmbiente(videoId) {
-      if (playerTaverna && playerTaverna.pauseVideo) playerTaverna.pauseVideo();
-      const modal = document.getElementById('modalAmbiente');
-      playerAmbiente = new YT.Player('ambienteFrame', {
-        height: '100%', width: '100%',
-        videoId: videoId,
-        playerVars: { 'autoplay': 1, 'controls': 0, 'modestbranding': 1, 'playsinline': 1, 'rel': 0, 'mute': 0 },
-        events: { 'onStateChange': (e) => { if (e.data === 0) fecharAmbiente(); } }
-      });
-      modal.classList.add('active');
+    document
+        .getElementById('ambienteModal')
+        .classList.add('active');
+
+    playerAmbiente = new YT.Player('ambientePlayer',{
+
+        videoId:videoId,
+
+        playerVars:{
+            autoplay:1,
+            controls:1,
+            rel:0,
+            modestbranding:1,
+            playsinline:1
+        },
+
+        events:{
+            onStateChange:onAmbienteStateChange
+        }
+
+    });
+}
+
+function onAmbienteStateChange(event){
+
+    if(event.data === YT.PlayerState.ENDED){
+
+        fecharAmbiente();
+
+    }
+}
+
+function fecharAmbiente(){
+
+    document
+        .getElementById('ambienteModal')
+        .classList.remove('active');
+
+    if(playerAmbiente){
+
+        try{
+            playerAmbiente.destroy();
+        }catch(error){}
+
+        playerAmbiente = null;
     }
 
-    function fecharAmbiente() {
-      document.getElementById('modalAmbiente').classList.remove('active');
-      if (playerAmbiente) { playerAmbiente.destroy(); playerAmbiente = null; }
-      if (playerTaverna && playerTaverna.playVideo) playerTaverna.playVideo();
+    document.getElementById('ambientePlayer').innerHTML = "";
+
+    if(
+        ambientesAbertos &&
+        playerRuna &&
+        tavernaEntrou
+    ){
+
+        try{
+            playerRuna.playVideo();
+        }catch(error){}
     }
 
-    // Carrossel Simples
-    let slideAtual = 0;
-    function mudarSlide(direcao) {
-      slideAtual += direcao;
-      if (slideAtual < 0) slideAtual = 3;
-      if (slideAtual > 3) slideAtual = 0;
-      atualizarCarrossel();
-    }
-    function irParaSlide(i) { slideAtual = i; atualizarCarrossel(); }
-    function atualizarCarrossel() {
-      document.getElementById('carrosselSlides').style.transform = `translateX(-${slideAtual * 100}%)`;
-      document.querySelectorAll('#carrosselIndicadores span').forEach((d, i) => d.classList.toggle('active', i === slideAtual));
-    }
+    ambientesAbertos = false;
+}
 
-    // Áudio da Runa
-    function toggleAudioRuna() {
-      const audio = document.getElementById('audioRuna');
-      const btn = document.getElementById('btnAudioRuna');
-      if (audioRunaTocando) {
-        audio.pause();
+/* =========================================
+   FECHAR MODAL CLICANDO FORA
+========================================= */
+
+document
+    .getElementById('ambienteModal')
+    .addEventListener('click',function(event){
+
+        if(event.target === this){
+            fecharAmbiente();
+        }
+
+    });
+
+/* =========================================
+   ÁUDIO DA RUNA
+========================================= */
+
+const audioRuna = document.getElementById('audioRuna');
+
+audioRuna.addEventListener('ended',function(){
+
+    const btn = document.getElementById('btnPlay');
+
+    if(btn){
         btn.textContent = "▶";
-        audioRunaTocando = false;
-      } else {
-        audio.play();
-        btn.textContent = "❚❚";
-        audioRunaTocando = true;
-      }
     }
-  </script>
+
+});
+
+/* =========================================
+   CARROSSEL
+========================================= */
+
+let slideAtual = 0;
+
+const totalSlides = 4;
+
+function moverSlide(direcao){
+
+    slideAtual += direcao;
+
+    if(slideAtual < 0){
+        slideAtual = totalSlides - 1;
+    }
+
+    if(slideAtual >= totalSlides){
+        slideAtual = 0;
+    }
+
+    document
+        .getElementById('carouselTrack')
+        .style.transform =
+        'translateX(-' + (slideAtual * 100) + '%)';
+}
+
+/* =========================================
+   TECLA ESC
+========================================= */
+
+document.addEventListener('keydown',function(event){
+
+    if(event.key === "Escape"){
+
+        const modal = document.getElementById('ambienteModal');
+
+        if(modal.classList.contains('active')){
+            fecharAmbiente();
+        }
+
+    }
+
+});
+
+</script>
+
 </body>
 </html>
