@@ -32,16 +32,28 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      transition: opacity 1s ease;
+      transition: opacity 1s ease, visibility 1s ease;
+      visibility: visible;
+      opacity: 1;
     }
-    .hero-overlay-container.hidden { opacity: 0; pointer-events: none; }
+    .hero-overlay-container.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
 
     .hero-video-bg {
       position: absolute;
       inset: 0;
       overflow: hidden;
       z-index: 0;
-      display: none;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    .hero-video-bg.active {
+      visibility: visible;
+      opacity: 1;
     }
     .hero-video-bg iframe {
       position: absolute;
@@ -93,8 +105,17 @@
     .hero-hint { margin-top: 20px; font-size: 0.75rem; color: #ccc; letter-spacing: 1px; text-shadow: 0 2px 8px rgba(0,0,0,0.9); }
 
     /* SEÇÃO PRINCIPAL */
-    .main-room { position: relative; min-height: 100vh; display: none; }
-    .main-room.visible { display: block; }
+    .main-room {
+      position: relative;
+      min-height: 100vh;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    .main-room.visible {
+      visibility: visible;
+      opacity: 1;
+    }
 
     .hero-room {
       position: relative;
@@ -664,24 +685,31 @@
     }
 
     function entrarNaTaverna() {
+      if (transicaoDisparada) return;
+
+      // 1. Pré-carrega a Hero em segundo plano
       if (playerRuna && playerRuna.playVideo) {
         playerRuna.setVolume(0);
         playerRuna.playVideo();
       }
 
+      // 2. Ativa o vídeo de fundo (agora com visibility, não display)
       const videoBg = document.getElementById('heroVideoBg');
-      if (videoBg) videoBg.style.display = 'block';
+      if (videoBg) videoBg.classList.add('active');
 
+      // 3. Toca o vídeo da frente
       if (playerFrente && playerFrente.playVideo) {
         playerFrente.playVideo();
       }
 
+      // 4. Toca o áudio de boas-vindas
       const audio = document.getElementById('boasVindas');
       if (audio) {
         audio.volume = 0.3;
         audio.play().catch(e => console.log("Áudio bloqueado:", e));
       }
 
+      // 5. Fallback: se o vídeo da porta não terminar em 11s
       setTimeout(() => { dispararTransicao(); }, 11000);
     }
 
@@ -787,4 +815,4 @@
   </script>
 
 </body>
-</html>
+  </html>
