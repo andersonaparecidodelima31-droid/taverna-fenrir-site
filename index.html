@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: auto; }
     body {
       background: #0a0a0a;
       color: #e0e0e0;
@@ -359,19 +359,19 @@
       if (modal) modal.classList.remove('active');
       if (doorFrame) doorFrame.src = "";
 
+      // OCULTAR A TELA DE COMANDOS (HERO) DE VEZ
+      const heroSection = document.querySelector('.hero');
+      if (heroSection) {
+        heroSection.style.display = 'none';
+      }
+
       const runaFrame = document.getElementById('runaFrame');
       if (runaFrame) {
         runaFrame.src = "https://www.youtube.com/embed/" + VIDEO_RUNA_BALCAO + "?autoplay=1&mute=1&loop=1&playlist=" + VIDEO_RUNA_BALCAO + "&controls=0&modestbranding=1&playsinline=1&rel=0";
       }
 
-      // COMANDO DE ASSUNÇÃO DO AMBIENTE:
-      // Aguarda 300ms para o modal fechar visualmente, depois rola para a sala principal.
-      setTimeout(() => {
-        const mainRoom = document.getElementById('mainRoom');
-        if (mainRoom) {
-          mainRoom.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 300);
+      // FORÇAR O TOPO ABSOLUTO PARA A SALA PRINCIPAL
+      window.scrollTo({ top: 0, behavior: 'instant' });
 
       iniciarMusica();
     }
@@ -434,4 +434,4 @@
   </script>
 
 </body>
-  </html>
+</html>
