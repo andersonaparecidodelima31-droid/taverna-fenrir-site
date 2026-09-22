@@ -20,6 +20,7 @@
   }
   h1, h2, h3 { font-family: 'Cinzel', serif; color: #c9a227; }
 
+  /* ENTRADA */
   .entrada {
     position: fixed;
     inset: 0;
@@ -62,6 +63,7 @@
   .conteudo { display: none; }
   .conteudo.visible { display: block; }
 
+  /* HERO */
   .hero {
     position: relative;
     height: 100vh;
@@ -113,10 +115,12 @@
     50% { transform: translateY(10px); opacity: 1; }
   }
 
+  /* SEÇÕES */
   section { padding: 60px 20px; max-width: 1100px; margin: 0 auto; }
   .titulo-secao { font-size: 1.8rem; margin-bottom: 10px; text-align: center; }
   .subtitulo-secao { text-align: center; color: #aaa; margin-bottom: 40px; font-size: 0.95rem; }
 
+  /* CARDS */
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
   .card {
     background: rgba(139,0,0,0.08);
@@ -133,15 +137,23 @@
   .card p { font-size: 0.9rem; color: #bbb; margin-bottom: 15px; }
   .card span { color: #c9a227; font-weight: 500; font-size: 0.9rem; }
 
+  /* CONTOS */
   .contos { display: flex; flex-direction: column; gap: 18px; }
-  .conto { background: rgba(139,0,0,0.06); border: 1px solid rgba(183,139,72,0.35); border-radius: 10px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+  .conto {
+    background: rgba(139,0,0,0.06);
+    border: 1px solid rgba(183,139,72,0.35);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .conto:hover { border-color: #c9a227; transform: translateY(-2px); }
   .conto h3 { font-size: 1.15rem; margin-bottom: 8px; }
   .conto p { font-size: 0.9rem; color: #bbb; margin-bottom: 12px; }
+  .conto .ler-conto { color: #c9a227; font-weight: 500; font-size: 0.9rem; }
 
-  .audio-conto { margin-top: 15px; padding: 12px; background: rgba(201,162,39,0.1); border: 1px solid rgba(201,162,39,0.3); border-radius: 10px; display: flex; align-items: center; gap: 12px; }
-  .audio-conto button { background: #c9a227; color: #0a0a0a; border: none; width: 38px; height: 38px; border-radius: 50%; font-size: 1rem; cursor: pointer; }
-  .audio-conto span { color: #c9a227; font-size: 0.9rem; font-style: italic; }
-
+  /* CARROSSEL */
   .carrossel { position: relative; margin: 20px 0; background: #000; border-radius: 10px; overflow: hidden; }
   .carrossel-slides { display: flex; transition: transform 0.4s ease; }
   .slide { min-width: 100%; position: relative; }
@@ -154,11 +166,14 @@
   .indicadores span { width: 8px; height: 8px; border-radius: 50%; background: rgba(201,162,39,0.4); cursor: pointer; }
   .indicadores span.active { background: #c9a227; }
 
+  /* AFILIADO */
   .btn-afiliado { display: inline-block; background: #8b0000; color: #fff; padding: 14px 30px; border: 1px solid #c9a227; border-radius: 30px; font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 700; text-decoration: none; margin-top: 20px; transition: all 0.3s; }
   .btn-afiliado:hover { background: #a00000; }
 
+  /* ARTE */
   .arte-container { background: rgba(139,0,0,0.06); border: 1px solid rgba(183,139,72,0.35); border-radius: 12px; padding: 40px 20px; text-align: center; color: #888; font-style: italic; }
 
+  /* RODAPÉ */
   footer { background: #050505; border-top: 1px solid rgba(201,162,39,0.2); padding: 40px 20px; text-align: center; }
   .redes { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
   .redes a { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; transition: transform 0.3s; }
@@ -167,6 +182,7 @@
   .contato { display: inline-block; color: #c9a227; text-decoration: none; margin-bottom: 20px; font-size: 0.95rem; }
   .copyright { font-size: 0.8rem; color: #666; margin-top: 15px; }
 
+  /* PLAYER DE MÚSICA */
   .player-musica {
     position: fixed;
     bottom: 20px;
@@ -175,17 +191,97 @@
     border: 1px solid #c9a227;
     border-radius: 30px;
     padding: 8px 16px;
-    display: flex;
+    display: none;
     align-items: center;
     gap: 12px;
     z-index: 100;
   }
+  .player-musica.visible { display: flex; }
   .player-musica button { background: transparent; border: none; color: #c9a227; font-size: 1.2rem; cursor: pointer; }
   .player-musica span { color: #c9a227; font-size: 0.9rem; }
+
+  /* MODAL DE HISTÓRIA */
+  .historia-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 2000;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  .historia-modal.active { display: block; }
+  .historia-box {
+    max-width: 700px;
+    margin: 40px auto;
+    background: #0f0f0f;
+    border: 1px solid rgba(201,162,39,0.35);
+    border-radius: 12px;
+    padding: 30px 25px;
+    position: relative;
+  }
+  .historia-fechar {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: transparent;
+    border: 1px solid #c9a227;
+    color: #c9a227;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  .historia-box h2 { font-size: 1.6rem; margin-bottom: 20px; padding-right: 40px; }
+  .historia-box .historia-texto { font-size: 1rem; line-height: 1.7; color: #ddd; margin-bottom: 20px; }
+  .historia-audio {
+    background: rgba(201,162,39,0.1);
+    border: 1px solid rgba(201,162,39,0.3);
+    border-radius: 10px;
+    padding: 15px;
+    display: none;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+  .historia-audio.visible { display: flex; }
+  .historia-audio button {
+    background: #c9a227;
+    color: #0a0a0a;
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+  .historia-audio span { color: #c9a227; font-size: 0.9rem; font-style: italic; }
+  .historia-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .historia-nav button {
+    flex: 1;
+    background: transparent;
+    border: 1px solid #c9a227;
+    color: #c9a227;
+    padding: 12px;
+    border-radius: 25px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .historia-nav button:hover { background: #c9a227; color: #0a0a0a; }
+  .historia-nav button:disabled { opacity: 0.3; cursor: not-allowed; }
 </style>
 </head>
 <body>
 
+<!-- ENTRADA -->
 <div class="entrada" id="entrada">
   <div class="entrada-overlay"></div>
   <div class="entrada-conteudo">
@@ -197,11 +293,13 @@
   </div>
 </div>
 
+<!-- CONTEÚDO -->
 <div class="conteudo" id="conteudo">
 
+  <!-- HERO -->
   <div class="hero">
     <iframe
-      src="https://www.youtube.com/embed/iQ_rePerQKo?autoplay=1&mute=1&loop=1&playlist=iQ_rePerQKo&controls=0&showinfo=0&modestbranding=1&playsinline=1&rel=0"
+      src="https://www.youtube.com/embed/_k51jLf5Axs?autoplay=1&mute=1&loop=1&playlist=_k51jLf5Axs&controls=0&showinfo=0&modestbranding=1&playsinline=1&rel=0"
       allow="autoplay; encrypted-media"
       title="Runa no balcão">
     </iframe>
@@ -218,6 +316,7 @@
     </div>
   </div>
 
+  <!-- OS SALÕES -->
   <section id="salões">
     <h2 class="titulo-secao">Nove portas, uma taverna</h2>
     <p class="subtitulo-secao">Comece pelas histórias e pelos mitos.</p>
@@ -279,84 +378,14 @@
     </div>
   </section>
 
+  <!-- CONTOS -->
   <section id="contos">
     <h2 class="titulo-secao">Desta noite: contos do fogo</h2>
     <p class="subtitulo-secao">Trechos curtos para ler no celular, entre uma caneca e outra.</p>
-    <div class="contos">
-
-      <div class="conto">
-        <h3>A caneca que nunca esfria</h3>
-        <p>Um viajante duvidou do fogo da casa. Runa serviu, sorriu — e a caneca ardeu em chamas azuis. Dizem que o fogo da Taverna Fenrir não queima a mão de quem chega em paz — só aquece a coragem.</p>
-      </div>
-
-      <div class="conto">
-        <h3>Sobre a Runa</h3>
-        <p>A história completa dela, contada por ela mesma, atrás do balcão.</p>
-        <div class="audio-conto">
-          <button onclick="toggleAudio()" id="btnAudio">▶</button>
-          <span>Ouça a Runa contar a própria história</span>
-        </div>
-      </div>
-
-      <div class="conto">
-        <h3>Brokkr e Eitri</h3>
-        <p>Dois irmãos anões forjaram o martelo de Thor. Brokkr trabalhou o fole enquanto Eitri moldava o metal. Loki, disfarçado de moscardo, tentou atrapalhar — mas o martelo saiu perfeito. Dizem que o pingente de Runa tem a mesma marca.</p>
-      </div>
-
-      <div class="conto">
-        <h3>Bardo e a sua caneca</h3>
-        <p>O velho cliente que tem uma caneca específica e uma memória que carrega.</p>
-
-        <div class="carrossel">
-          <div class="carrossel-slides" id="slides">
-            <div class="slide">
-              <img src="Caneca bardo1.png" alt="A Caneca do Bardo">
-              <div class="legenda">A Caneca do Bardo — digna de uma saga nórdica.</div>
-            </div>
-            <div class="slide">
-              <img src="Caneca bardo2.png" alt="Caneca em pedra com musgo">
-              <div class="legenda">Feita para durar. Do balcão da taverna para a sua mesa.</div>
-            </div>
-            <div class="slide">
-              <img src="Caneca bardo3.png" alt="Mãos segurando a caneca">
-              <div class="legenda">Cada peça carrega a memória de quem a segura.</div>
-            </div>
-            <div class="slide">
-              <img src="Caneca bardo4.jpg" alt="Runa servindo">
-              <div class="legenda">Runa servindo, atrás do balcão.</div>
-            </div>
-          </div>
-          <button class="carrossel-btn prev" onclick="mudarSlide(-1)">‹</button>
-          <button class="carrossel-btn next" onclick="mudarSlide(1)">›</button>
-          <div class="indicadores" id="indicadores">
-            <span class="active" onclick="irSlide(0)"></span>
-            <span onclick="irSlide(1)"></span>
-            <span onclick="irSlide(2)"></span>
-            <span onclick="irSlide(3)"></span>
-          </div>
-        </div>
-
-        <a href="https://meli.la/1AD7Wh8" target="_blank" class="btn-afiliado">Levar esta relíquia →</a>
-      </div>
-
-      <div class="conto">
-        <h3>Juramento sob Yggdrasil</h3>
-        <p>Antes de abrir a taverna, Runa gravou uma runa na raiz da árvore e jurou: nenhum ferido fica lá fora. A taverna inteira é a lição aprendida.</p>
-      </div>
-
-      <div class="conto">
-        <h3>Neve e sangue na porta</h3>
-        <p>Na noite em que Fenrir uivou, Runa trocou a espada pelo avental — sem pousar nenhuma das duas. A trégua dura até a caneca esvaziar.</p>
-      </div>
-
-      <div class="conto">
-        <h3>Como Runa aprendeu as runas</h3>
-        <p>Antes da espada, a faca de entalhe: a vidente do bando ensinou Runa a ler as runas na madeira, na neve e no silêncio. "A espada decide depressa. A runa decide certo."</p>
-      </div>
-
-    </div>
+    <div class="contos" id="listaContos"></div>
   </section>
 
+  <!-- UNIVERSO VIKING -->
   <section id="universo">
     <h2 class="titulo-secao">Você sabia?</h2>
     <p class="subtitulo-secao">Curiosidades rápidas para quebrar o gelo.</p>
@@ -372,6 +401,7 @@
     </div>
   </section>
 
+  <!-- ARTE -->
   <section id="arte">
     <h2 class="titulo-secao">Arte Conceitual</h2>
     <p class="subtitulo-secao">O processo criativo por trás da Runa — esboços, estudos e evoluções.</p>
@@ -380,6 +410,7 @@
     </div>
   </section>
 
+  <!-- RODAPÉ -->
   <footer>
     <div class="redes">
       <a href="https://www.instagram.com/runataverna" target="_blank" aria-label="Instagram">
@@ -412,90 +443,211 @@
 
 </div>
 
-<div class="player-musica">
+<!-- PLAYER DE MÚSICA -->
+<div class="player-musica" id="playerMusicaBox">
   <button id="btnMusica" onclick="toggleMusica()">❚❚</button>
   <span>♪</span>
 </div>
 
-<!-- Música ambiente via YouTube (escondido) -->
-<div style="position:fixed; bottom:0; right:0; width:1px; height:1px; overflow:hidden; opacity:0; pointer-events:none;">
-  <iframe id="iframeMusica" src="https://www.youtube.com/embed/2zLQ-JMOB6Q?autoplay=1&loop=1&playlist=2zLQ-JMOB6Q&controls=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media" frameborder="0"></iframe>
+<!-- MODAL DE HISTÓRIA -->
+<div class="historia-modal" id="historiaModal">
+  <div class="historia-box">
+    <button class="historia-fechar" onclick="fecharHistoria()">✕</button>
+    <h2 id="historiaTitulo"></h2>
+    <div class="historia-texto" id="historiaTexto"></div>
+    <div class="historia-audio" id="historiaAudioBox">
+      <button id="historiaAudioBtn" onclick="toggleHistoriaAudio()">▶</button>
+      <span>Ouça a Runa contar esta história</span>
+    </div>
+    <div class="historia-nav">
+      <button id="btnHistoriaAnterior" onclick="historiaAnterior()">← Voltar</button>
+      <button id="btnHistoriaProxima" onclick="proximaHistoria()">Avançar →</button>
+    </div>
+  </div>
 </div>
 
+<!-- ÁUDIOS NATIVOS (GitHub) -->
+<audio id="musicaAmbiente" src="musica_ambiente.mp3" loop preload="auto"></audio>
 <audio id="audioRuna" src="runa_historia_completa_v1.mp3" preload="auto"></audio>
 <audio id="boasVindas" src="boas_vindas.mp3" preload="auto"></audio>
 
 <script>
-  const URL_MUSICA = "https://www.youtube.com/embed/2zLQ-JMOB6Q?autoplay=1&loop=1&playlist=2zLQ-JMOB6Q&controls=0&modestbranding=1&playsinline=1";
+  // ============================================
+  // DADOS DAS HISTÓRIAS
+  // ============================================
+  const historias = [
+    {
+      titulo: "A caneca que nunca esfria",
+      texto: "Um viajante duvidou do fogo da casa. Runa serviu, sorriu — e a caneca ardeu em chamas azuis. Dizem que o fogo da Taverna Fenrir não queima a mão de quem chega em paz — só aquece a coragem.",
+      audio: null
+    },
+    {
+      titulo: "Sobre a Runa",
+      texto: "A história completa dela, contada por ela mesma, atrás do balcão. Uma guerreira que perdeu a família, encontrou um bando, buscou vingança, descobriu o vazio e escolheu construir uma taverna. Ouça na voz dela.",
+      audio: "runa_historia_completa_v1.mp3"
+    },
+    {
+      titulo: "Brokkr e Eitri",
+      texto: "Dois irmãos anões forjaram o martelo de Thor. Brokkr trabalhou o fole enquanto Eitri moldava o metal. Loki, disfarçado de moscardo, tentou atrapalhar — mas o martelo saiu perfeito. Dizem que o pingente de Runa tem a mesma marca.",
+      audio: null
+    },
+    {
+      titulo: "Bardo e a sua caneca",
+      texto: "O velho cliente que tem uma caneca específica e uma memória que carrega. Toda quinta-feira ele senta no mesmo canto e pede hidromel na caneca dele. Uma história sobre objetos que carregam o peso de quem fomos.",
+      audio: null
+    },
+    {
+      titulo: "Juramento sob Yggdrasil",
+      texto: "Antes de abrir a taverna, Runa gravou uma runa na raiz da árvore e jurou: nenhum ferido fica lá fora. A taverna inteira é a lição aprendida.",
+      audio: null
+    },
+    {
+      titulo: "Neve e sangue na porta",
+      texto: "Na noite em que Fenrir uivou, Runa trocou a espada pelo avental — sem pousar nenhuma das duas. A trégua dura até a caneca esvaziar.",
+      audio: null
+    },
+    {
+      titulo: "Como Runa aprendeu as runas",
+      texto: "Antes da espada, a faca de entalhe: a vidente do bando ensinou Runa a ler as runas na madeira, na neve e no silêncio. \"A espada decide depressa. A runa decide certo.\"",
+      audio: null
+    }
+  ];
 
-  const iframeMusica = document.getElementById('iframeMusica');
+  let historiaAtual = 0;
+  let audioRunaTocando = false;
+
+  // ============================================
+  // REFERÊNCIAS
+  // ============================================
+  const musica = document.getElementById('musicaAmbiente');
   const boasVindas = document.getElementById('boasVindas');
   const audioRuna = document.getElementById('audioRuna');
   const btnMusica = document.getElementById('btnMusica');
-  const btnAudio = document.getElementById('btnAudio');
 
-  let audioRunaTocando = false;
-  let musicaLigada = false;
-
-  function entrar() {
-    document.getElementById('entrada').classList.add('hidden');
-    document.getElementById('conteudo').classList.add('visible');
-
-    iframeMusica.src = URL_MUSICA;
-    musicaLigada = true;
-    btnMusica.textContent = '❚❚';
-
-    boasVindas.volume = 0.3;
-    boasVindas.play().catch(e => console.log('Áudio bloqueado:', e));
+  // ============================================
+  // RENDERIZAR LISTA DE CONTOS
+  // ============================================
+  function renderizarContos() {
+    const container = document.getElementById('listaContos');
+    container.innerHTML = historias.map((h, i) => `
+      <div class="conto" onclick="abrirHistoria(${i})">
+        <h3>${h.titulo}</h3>
+        <p>${h.texto.substring(0, 130)}...</p>
+        <span class="ler-conto">Ler o conto →</span>
+      </div>
+    `).join('');
   }
 
-  function toggleMusica() {
-    if (musicaLigada) {
-      iframeMusica.src = "";
-      musicaLigada = false;
-      btnMusica.textContent = '▶';
+  // ============================================
+  // ABRIR / FECHAR HISTÓRIA
+  // ============================================
+  function abrirHistoria(index) {
+    historiaAtual = index;
+    const h = historias[index];
+    document.getElementById('historiaTitulo').textContent = h.titulo;
+    document.getElementById('historiaTexto').textContent = h.texto;
+
+    const audioBox = document.getElementById('historiaAudioBox');
+    const audioBtn = document.getElementById('historiaAudioBtn');
+
+    // Para qualquer áudio em execução
+    audioRuna.pause();
+    audioRuna.currentTime = 0;
+    audioBtn.textContent = '▶';
+    audioRunaTocando = false;
+
+    // Restaura música para 20%
+    musica.volume = 0.20;
+
+    if (h.audio) {
+      audioBox.classList.add('visible');
+      audioRuna.src = h.audio;
     } else {
-      iframeMusica.src = URL_MUSICA;
-      musicaLigada = true;
-      btnMusica.textContent = '❚❚';
+      audioBox.classList.remove('visible');
     }
+
+    // Atualiza botões de navegação
+    document.getElementById('btnHistoriaAnterior').disabled = (index === 0);
+    document.getElementById('btnHistoriaProxima').disabled = (index === historias.length - 1);
+
+    document.getElementById('historiaModal').classList.add('active');
   }
 
-  function toggleAudio() {
+  function fecharHistoria() {
+    document.getElementById('historiaModal').classList.remove('active');
+    audioRuna.pause();
+    audioRuna.currentTime = 0;
+    audioRunaTocando = false;
+    document.getElementById('historiaAudioBtn').textContent = '▶';
+    musica.volume = 0.20;
+  }
+
+  function historiaAnterior() {
+    if (historiaAtual > 0) abrirHistoria(historiaAtual - 1);
+  }
+
+  function proximaHistoria() {
+    if (historiaAtual < historias.length - 1) abrirHistoria(historiaAtual + 1);
+  }
+
+  // ============================================
+  // ÁUDIO DA HISTÓRIA — DUCKING 5% / 20%
+  // ============================================
+  function toggleHistoriaAudio() {
+    const btn = document.getElementById('historiaAudioBtn');
+
     if (audioRunaTocando) {
       audioRuna.pause();
-      btnAudio.textContent = '▶';
+      btn.textContent = '▶';
       audioRunaTocando = false;
-
-      if (!musicaLigada) {
-        iframeMusica.src = URL_MUSICA;
-        musicaLigada = true;
-        btnMusica.textContent = '❚❚';
-      }
+      musica.volume = 0.20;
     } else {
-      audioRuna.play();
-      btnAudio.textContent = '❚❚';
+      audioRuna.play().catch(e => console.log('Áudio bloqueado:', e));
+      btn.textContent = '❚❚';
       audioRunaTocando = true;
-
-      if (musicaLigada) {
-        iframeMusica.src = "";
-        musicaLigada = false;
-        btnMusica.textContent = '▶';
-      }
+      musica.volume = 0.05;
     }
   }
 
   audioRuna.addEventListener('ended', function() {
     audioRunaTocando = false;
-    btnAudio.textContent = '▶';
-
-    if (!musicaLigada) {
-      iframeMusica.src = URL_MUSICA;
-      musicaLigada = true;
-      btnMusica.textContent = '❚❚';
-    }
+    document.getElementById('historiaAudioBtn').textContent = '▶';
+    musica.volume = 0.20;
   });
 
+  // ============================================
+  // ENTRAR NA TAVERNA
+  // ============================================
+  function entrar() {
+    document.getElementById('entrada').classList.add('hidden');
+    document.getElementById('conteudo').classList.add('visible');
+    document.getElementById('playerMusicaBox').classList.add('visible');
+
+    // Música ambiente começa a 20%
+    musica.volume = 0.20;
+    musica.play().catch(e => console.log('Música bloqueada:', e));
+
+    // Toca boas-vindas
+    boasVindas.volume = 0.3;
+    boasVindas.play().catch(e => console.log('Áudio bloqueado:', e));
+  }
+
+  // ============================================
+  // TOGGLE MÚSICA
+  // ============================================
+  function toggleMusica() {
+    if (musica.paused) {
+      musica.play();
+      btnMusica.textContent = '❚❚';
+    } else {
+      musica.pause();
+      btnMusica.textContent = '▶';
+    }
+  }
+
+  // ============================================
+  // CARROSSEL
+  // ============================================
   let slideAtual = 0;
   const totalSlides = 4;
 
@@ -517,6 +669,11 @@
       dot.classList.toggle('active', i === slideAtual);
     });
   }
+
+  // ============================================
+  // INIT
+  // ============================================
+  renderizarContos();
 </script>
 
 </body>
