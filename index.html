@@ -3,29 +3,49 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taverna Fenrir — Runa</title>
+<meta name="theme-color" content="#0a0a0a">
+
+<title>Taverna Fenrir — A Casa de Runa</title>
+<meta name="description" content="Taverna Fenrir: contos, mitologia nórdica e o universo viking de Runa, a taberneira. Histórias contadas junto ao fogo.">
+<meta name="author" content="Taverna Fenrir">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Taverna Fenrir — A Casa de Runa">
+<meta property="og:description" content="O fogo está aceso e teu lugar está guardado. Contos, mitos e relíquias do norte.">
+<meta property="og:image" content="assets/img/entrada-taverna.jpg">
+<meta property="og:url" content="https://andersonaparecidodelima31-droid.github.io/taverna-fenrir-site/">
+<meta name="twitter:card" content="summary_large_image">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
+  /* ============================================
+     RESET E BASE
+     ============================================ */
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
   body {
     background: #0a0a0a;
     color: #e0e0e0;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
-    line-height: 1.5;
+    line-height: 1.6;
     overflow-x: hidden;
   }
   h1, h2, h3 { font-family: 'Cinzel', serif; color: #c9a227; }
+  a { color: #c9a227; text-decoration: none; }
+  img { max-width: 100%; display: block; }
 
-  /* ENTRADA */
+  /* ============================================
+     ENTRADA
+     ============================================ */
   .entrada {
     position: fixed;
     inset: 0;
     z-index: 1000;
-    background: #000 url('Entrada taverna.jpg') center/cover no-repeat;
+    background: #000 url('assets/img/entrada-taverna.jpg') center/cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,8 +53,8 @@
     transition: opacity 0.8s ease;
   }
   .entrada.hidden { opacity: 0; pointer-events: none; }
-  .entrada-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.5); }
-  .entrada-conteudo { position: relative; z-index: 1; padding: 20px; }
+  .entrada-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.55); }
+  .entrada-conteudo { position: relative; z-index: 1; padding: 20px; max-width: 500px; }
   .entrada-conteudo h1 { font-size: 2.8rem; letter-spacing: 3px; margin-bottom: 5px; text-shadow: 0 2px 15px rgba(0,0,0,0.9); }
   .entrada-conteudo h2 { font-size: 1.2rem; color: #c9a227; letter-spacing: 6px; margin-bottom: 25px; font-weight: 400; }
   .entrada-conteudo p { font-size: 1rem; margin-bottom: 30px; color: #ccc; font-style: italic; text-shadow: 0 2px 8px rgba(0,0,0,0.9); }
@@ -63,7 +83,69 @@
   .conteudo { display: none; }
   .conteudo.visible { display: block; }
 
-  /* HERO */
+  /* ============================================
+     NAVBAR
+     ============================================ */
+  .navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(201,162,39,0.25);
+    z-index: 500;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+  }
+  .navbar.visible { display: flex; }
+  .navbar-brand {
+    font-family: 'Cinzel', serif;
+    color: #c9a227;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-size: 0.95rem;
+  }
+  .menu-toggle {
+    background: transparent;
+    border: 1px solid #c9a227;
+    color: #c9a227;
+    width: 40px;
+    height: 36px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1.1rem;
+  }
+  .menu-lista {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 12px;
+    background: rgba(10,10,10,0.98);
+    border: 1px solid rgba(201,162,39,0.4);
+    border-radius: 10px;
+    padding: 10px 0;
+    min-width: 220px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.7);
+  }
+  .menu-lista.aberto { display: block; }
+  .menu-lista a {
+    display: block;
+    padding: 12px 20px;
+    color: #e0e0e0;
+    font-size: 0.9rem;
+    border-left: 3px solid transparent;
+    transition: all 0.2s;
+  }
+  .menu-lista a:hover {
+    background: rgba(201,162,39,0.1);
+    border-left-color: #c9a227;
+    color: #c9a227;
+  }
+
+  /* ============================================
+     HERO
+     ============================================ */
   .hero {
     position: relative;
     height: 100vh;
@@ -89,10 +171,10 @@
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 75%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.9) 80%);
     z-index: 1;
   }
-  .hero-conteudo { position: relative; z-index: 2; padding: 60px 20px 50px 20px; width: 100%; }
+  .hero-conteudo { position: relative; z-index: 2; padding: 60px 20px 50px; width: 100%; }
   .hero-conteudo h2 { font-size: 2rem; margin-bottom: 20px; letter-spacing: 2px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
   .btn-historia {
     display: inline-block;
@@ -115,12 +197,16 @@
     50% { transform: translateY(10px); opacity: 1; }
   }
 
-  /* SEÇÕES */
+  /* ============================================
+     SEÇÕES GENÉRICAS
+     ============================================ */
   section { padding: 60px 20px; max-width: 1100px; margin: 0 auto; }
   .titulo-secao { font-size: 1.8rem; margin-bottom: 10px; text-align: center; }
   .subtitulo-secao { text-align: center; color: #aaa; margin-bottom: 40px; font-size: 0.95rem; }
 
-  /* CARDS */
+  /* ============================================
+     CARDS
+     ============================================ */
   .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
   .card {
     background: rgba(139,0,0,0.08);
@@ -130,6 +216,9 @@
     transition: all 0.3s;
     box-shadow: 0 4px 20px rgba(0,0,0,0.4);
     cursor: pointer;
+    text-decoration: none;
+    display: block;
+    color: inherit;
   }
   .card:hover { border-color: #c9a227; transform: translateY(-3px); }
   .card-tag { display: inline-block; font-size: 0.75rem; color: #c9a227; border: 1px solid rgba(201,162,39,0.4); border-radius: 20px; padding: 3px 12px; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
@@ -137,7 +226,9 @@
   .card p { font-size: 0.9rem; color: #bbb; margin-bottom: 15px; }
   .card span { color: #c9a227; font-weight: 500; font-size: 0.9rem; }
 
-  /* CONTOS */
+  /* ============================================
+     CONTOS
+     ============================================ */
   .contos { display: flex; flex-direction: column; gap: 18px; }
   .conto {
     background: rgba(139,0,0,0.06);
@@ -153,28 +244,149 @@
   .conto p { font-size: 0.9rem; color: #bbb; margin-bottom: 12px; }
   .conto .ler-conto { color: #c9a227; font-weight: 500; font-size: 0.9rem; }
 
-  /* CARROSSEL */
-  .carrossel { position: relative; margin: 20px 0; background: #000; border-radius: 10px; overflow: hidden; }
+  /* ============================================
+     SOBRE A RUNA — TIMELINE
+     ============================================ */
+  .sobre-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    align-items: start;
+  }
+  @media (min-width: 780px) {
+    .sobre-grid { grid-template-columns: 1fr 1.3fr; }
+  }
+  .sobre-retrato {
+    background: rgba(139,0,0,0.08);
+    border: 1px solid rgba(183,139,72,0.35);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 30px rgba(0,0,0,0.5);
+  }
+  .sobre-retrato .retrato-placeholder {
+    aspect-ratio: 3/4;
+    background: linear-gradient(135deg, #1a0a0a, #2a1515);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    font-style: italic;
+    font-size: 0.9rem;
+    padding: 20px;
+    text-align: center;
+  }
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px; top: 6px; bottom: 6px;
+    width: 2px;
+    background: linear-gradient(to bottom, transparent, #c9a227, transparent);
+  }
+  .timeline-item { position: relative; margin-bottom: 26px; }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -26px; top: 6px;
+    width: 12px; height: 12px;
+    background: #c9a227;
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(201,162,39,0.15);
+  }
+  .timeline-item h4 { font-family: 'Cinzel', serif; color: #c9a227; font-size: 1rem; margin-bottom: 4px; letter-spacing: 1px; }
+  .timeline-item p { font-size: 0.9rem; color: #bbb; }
+
+  .btn-player-runa {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #c9a227;
+    color: #0a0a0a;
+    padding: 14px 28px;
+    border: none;
+    border-radius: 30px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s;
+  }
+  .btn-player-runa:hover { background: #d4af37; }
+
+  /* ============================================
+     CARROSSEL DE ARTE
+     ============================================ */
+  .carrossel { position: relative; margin: 20px 0; background: #000; border-radius: 10px; overflow: hidden; border: 1px solid rgba(183,139,72,0.35); }
   .carrossel-slides { display: flex; transition: transform 0.4s ease; }
   .slide { min-width: 100%; position: relative; }
   .slide img { width: 100%; height: auto; display: block; }
-  .legenda { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.9), transparent); color: #e0e0e0; padding: 30px 20px 15px 20px; font-size: 0.9rem; font-style: italic; text-align: center; }
-  .carrossel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.6); color: #c9a227; border: 1px solid #c9a227; width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; z-index: 10; }
+  .slide .placeholder {
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, #1a0a0a, #2a1515);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-style: italic;
+    font-size: 0.9rem;
+  }
+  .legenda { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.95), transparent); color: #e0e0e0; padding: 30px 20px 15px; font-size: 0.9rem; font-style: italic; text-align: center; }
+  .carrossel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.7); color: #c9a227; border: 1px solid #c9a227; width: 42px; height: 42px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; z-index: 10; transition: all 0.3s; }
+  .carrossel-btn:hover { background: #c9a227; color: #0a0a0a; }
   .carrossel-btn.prev { left: 10px; }
   .carrossel-btn.next { right: 10px; }
-  .indicadores { display: flex; justify-content: center; gap: 8px; padding: 12px 0; background: rgba(0,0,0,0.8); }
-  .indicadores span { width: 8px; height: 8px; border-radius: 50%; background: rgba(201,162,39,0.4); cursor: pointer; }
-  .indicadores span.active { background: #c9a227; }
+  .indicadores { display: flex; justify-content: center; gap: 8px; padding: 14px 0; background: rgba(0,0,0,0.85); }
+  .indicadores span { width: 8px; height: 8px; border-radius: 50%; background: rgba(201,162,39,0.4); cursor: pointer; transition: all 0.3s; }
+  .indicadores span.active { background: #c9a227; width: 22px; border-radius: 4px; }
 
-  /* AFILIADO */
-  .btn-afiliado { display: inline-block; background: #8b0000; color: #fff; padding: 14px 30px; border: 1px solid #c9a227; border-radius: 30px; font-family: 'Cinzel', serif; font-size: 0.95rem; font-weight: 700; text-decoration: none; margin-top: 20px; transition: all 0.3s; }
+  /* ============================================
+     RELÍQUIAS (placeholders para afiliados)
+     ============================================ */
+  .reliquia {
+    background: rgba(139,0,0,0.06);
+    border: 1px solid rgba(183,139,72,0.35);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+  .reliquia:hover { border-color: #c9a227; }
+  .reliquia-img {
+    aspect-ratio: 1/1;
+    background: linear-gradient(135deg, #1a0a0a, #2a1515);
+    border-radius: 8px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #555;
+    font-style: italic;
+    font-size: 0.85rem;
+    padding: 15px;
+    text-align: center;
+  }
+  .reliquia h3 { font-size: 1.1rem; margin-bottom: 8px; }
+  .reliquia p { font-size: 0.88rem; color: #bbb; margin-bottom: 14px; }
+  .btn-afiliado {
+    display: inline-block;
+    background: #8b0000;
+    color: #fff;
+    padding: 12px 26px;
+    border: 1px solid #c9a227;
+    border-radius: 30px;
+    font-family: 'Cinzel', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
   .btn-afiliado:hover { background: #a00000; }
 
-  /* ARTE */
-  .arte-container { background: rgba(139,0,0,0.06); border: 1px solid rgba(183,139,72,0.35); border-radius: 12px; padding: 40px 20px; text-align: center; color: #888; font-style: italic; }
-
-  /* RODAPÉ */
-  footer { background: #050505; border-top: 1px solid rgba(201,162,39,0.2); padding: 40px 20px; text-align: center; }
+  /* ============================================
+     RODAPÉ
+     ============================================ */
+  footer { background: #050505; border-top: 1px solid rgba(201,162,39,0.2); padding: 40px 20px; text-align: center; margin-top: 40px; }
   .redes { display: flex; justify-content: center; gap: 20px; margin-bottom: 20px; }
   .redes a { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; transition: transform 0.3s; }
   .redes a:hover { transform: scale(1.15); }
@@ -182,12 +394,13 @@
   .contato { display: inline-block; color: #c9a227; text-decoration: none; margin-bottom: 20px; font-size: 0.95rem; }
   .copyright { font-size: 0.8rem; color: #666; margin-top: 15px; }
 
-  /* PLAYER DE MÚSICA */
+  /* ============================================
+     PLAYER DE MÚSICA FLUTUANTE
+     ============================================ */
   .player-musica {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(10,10,10,0.9);
+    bottom: 20px; right: 20px;
+    background: rgba(10,10,10,0.92);
     border: 1px solid #c9a227;
     border-radius: 30px;
     padding: 8px 16px;
@@ -195,12 +408,15 @@
     align-items: center;
     gap: 12px;
     z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
   }
   .player-musica.visible { display: flex; }
   .player-musica button { background: transparent; border: none; color: #c9a227; font-size: 1.2rem; cursor: pointer; }
   .player-musica span { color: #c9a227; font-size: 0.9rem; }
 
-  /* MODAL DE HISTÓRIA */
+  /* ============================================
+     MODAL DE HISTÓRIA
+     ============================================ */
   .historia-modal {
     display: none;
     position: fixed;
@@ -222,19 +438,17 @@
   }
   .historia-fechar {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 15px; right: 15px;
     background: transparent;
     border: 1px solid #c9a227;
     color: #c9a227;
-    width: 34px;
-    height: 34px;
+    width: 34px; height: 34px;
     border-radius: 50%;
     font-size: 1rem;
     cursor: pointer;
   }
   .historia-box h2 { font-size: 1.6rem; margin-bottom: 20px; padding-right: 40px; }
-  .historia-box .historia-texto { font-size: 1rem; line-height: 1.7; color: #ddd; margin-bottom: 20px; }
+  .historia-box .historia-texto { font-size: 1rem; line-height: 1.75; color: #ddd; margin-bottom: 20px; white-space: pre-line; }
   .historia-audio {
     background: rgba(201,162,39,0.1);
     border: 1px solid rgba(201,162,39,0.3);
@@ -250,19 +464,14 @@
     background: #c9a227;
     color: #0a0a0a;
     border: none;
-    width: 44px;
-    height: 44px;
+    width: 44px; height: 44px;
     border-radius: 50%;
     font-size: 1.1rem;
     cursor: pointer;
+    flex-shrink: 0;
   }
   .historia-audio span { color: #c9a227; font-size: 0.9rem; font-style: italic; }
-  .historia-nav {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-top: 20px;
-  }
+  .historia-nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 20px; }
   .historia-nav button {
     flex: 1;
     background: transparent;
@@ -275,13 +484,28 @@
     cursor: pointer;
     transition: all 0.3s;
   }
-  .historia-nav button:hover { background: #c9a227; color: #0a0a0a; }
+  .historia-nav button:hover:not(:disabled) { background: #c9a227; color: #0a0a0a; }
   .historia-nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  /* ============================================
+     NOTA DE PROJETO
+     ============================================ */
+  .nota-prototipo {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #666;
+    font-style: italic;
+    margin-top: 20px;
+    padding: 10px;
+    border-top: 1px dashed rgba(201,162,39,0.2);
+  }
 </style>
 </head>
 <body>
 
-<!-- ENTRADA -->
+<!-- ============================================
+     ENTRADA
+     ============================================ -->
 <div class="entrada" id="entrada">
   <div class="entrada-overlay"></div>
   <div class="entrada-conteudo">
@@ -293,16 +517,35 @@
   </div>
 </div>
 
-<!-- CONTEÚDO -->
+<!-- ============================================
+     CONTEÚDO
+     ============================================ -->
 <div class="conteudo" id="conteudo">
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-brand">TAVERNA FENRIR</div>
+    <button class="menu-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
+    <div class="menu-lista" id="menuLista">
+      <a href="#sobre" onclick="fecharMenu()">Sobre a Runa</a>
+      <a href="#mitologia" onclick="fecharMenu()">Mitologia Nórdica</a>
+      <a href="#universo" onclick="fecharMenu()">Universo Viking</a>
+      <a href="#contos" onclick="fecharMenu()">Contos</a>
+      <a href="#reliquias" onclick="fecharMenu()">Anéis & Pingentes</a>
+      <a href="#canecas" onclick="fecharMenu()">Canecas & Utensílios</a>
+      <a href="#camisetas" onclick="fecharMenu()">Camisetas</a>
+      <a href="#casacos" onclick="fecharMenu()">Casacos</a>
+      <a href="#rock" onclick="fecharMenu()">Rock & Metal</a>
+      <a href="#arte" onclick="fecharMenu()">Arte Conceitual</a>
+    </div>
+  </nav>
 
   <!-- HERO -->
   <div class="hero">
     <iframe
       src="https://www.youtube.com/embed/_k51jLf5Axs?autoplay=1&mute=1&loop=1&playlist=_k51jLf5Axs&controls=0&showinfo=0&modestbranding=1&playsinline=1&rel=0"
       allow="autoplay; encrypted-media"
-      title="Runa no balcão">
-    </iframe>
+      title="Runa no balcão"></iframe>
     <div class="hero-overlay"></div>
     <div class="hero-conteudo">
       <h2>A casa de Runa está aberta.</h2>
@@ -316,101 +559,391 @@
     </div>
   </div>
 
-  <!-- OS SALÕES -->
+  <!-- ============================================
+       OS SALÕES
+       ============================================ -->
   <section id="salões">
     <h2 class="titulo-secao">Nove portas, uma taverna</h2>
-    <p class="subtitulo-secao">Comece pelas histórias e pelos mitos.</p>
+    <p class="subtitulo-secao">Comece pelas histórias e pelos mitos. As salas de relíquias guardam lugar para recomendações futuras — com links externos e o conto de cada peça.</p>
     <div class="cards">
-      <div class="card" onclick="document.getElementById('contos').scrollIntoView({behavior:'smooth'})">
-        <span class="card-tag">Contos</span>
-        <h3>Histórias da Runa</h3>
-        <p>Noites junto ao fogo: batalhas, juramentos e a caneca que nunca esfria.</p>
+      <a class="card" href="#sobre">
+        <span class="card-tag">Ela mesma</span>
+        <h3>Sobre a Runa</h3>
+        <p>A guerreira que trocou a espada pelo avental — e a história completa na voz dela.</p>
         <span>Entrar →</span>
-      </div>
-      <div class="card">
+      </a>
+      <a class="card" href="#mitologia">
         <span class="card-tag">Mitos</span>
         <h3>Mitologia Nórdica</h3>
         <p>Yggdrasil, os Nove Mundos, Fenrir e os deuses que observam a taverna.</p>
         <span>Entrar →</span>
-      </div>
-      <div class="card">
+      </a>
+      <a class="card" href="#universo">
         <span class="card-tag">Mundo</span>
         <h3>Universo Viking</h3>
         <p>Rotas, clãs, navios e costumes que moldaram a guerreira taberneira.</p>
         <span>Entrar →</span>
-      </div>
-      <div class="card">
+      </a>
+      <a class="card" href="#contos">
+        <span class="card-tag">Contos</span>
+        <h3>Histórias da Runa</h3>
+        <p>Noites junto ao fogo: batalhas, juramentos e a caneca que nunca esfria.</p>
+        <span>Entrar →</span>
+      </a>
+      <a class="card" href="#reliquias">
         <span class="card-tag">Sala de relíquias</span>
         <h3>Anéis & Pingentes</h3>
         <p>Peças ligadas às histórias. Recomendações externas chegarão aqui.</p>
         <span>Entrar →</span>
-      </div>
-      <div class="card">
+      </a>
+      <a class="card" href="#canecas">
         <span class="card-tag">Do balcão</span>
         <h3>Canecas & Utensílios</h3>
-        <p>Do balcão da taverna para a sua mesa.</p>
+        <p>Madeira, ferro e fogo — o kit da taverna ideal, contado em histórias.</p>
         <span>Entrar →</span>
-      </div>
-      <div class="card">
+      </a>
+      <a class="card" href="#camisetas">
         <span class="card-tag">Vestir</span>
         <h3>Camisetas</h3>
         <p>Tecido de estrada: símbolos da casa para usar fora da taverna.</p>
         <span>Entrar →</span>
-      </div>
-      <div class="card">
+      </a>
+      <a class="card" href="#casacos">
         <span class="card-tag">Vestir</span>
         <h3>Casacos</h3>
         <p>Contra a neve lá fora: camadas quentes com espírito do norte.</p>
         <span>Entrar →</span>
-      </div>
-      <div class="card">
+      </a>
+      <a class="card" href="#rock">
         <span class="card-tag">Som</span>
         <h3>Rock & Metal</h3>
         <p>A trilha da casa: riffs, tambores de guerra e coros de salão.</p>
         <span>Entrar →</span>
-      </div>
-      <div class="card" onclick="document.getElementById('arte').scrollIntoView({behavior:'smooth'})">
+      </a>
+      <a class="card" href="#arte">
         <span class="card-tag">Bastidores</span>
         <h3>Arte Conceitual</h3>
         <p>O processo criativo por trás da Runa — esboços e estudos.</p>
         <span>Entrar →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SOBRE A RUNA
+       ============================================ -->
+  <section id="sobre">
+    <h2 class="titulo-secao">Sobre a Runa</h2>
+    <p class="subtitulo-secao">Uma guerreira que escolheu servir em vez de sangrar.</p>
+    <div class="sobre-grid">
+      <div class="sobre-retrato">
+        <div class="retrato-placeholder">
+          Retrato da Runa<br>(adicione assets/img/sobre-runa.jpg)
+        </div>
+      </div>
+      <div>
+        <p style="margin-bottom: 16px; color: #ccc;">
+          Runa era uma Karl — fazendeira, tecelã, parte da maioria que sustentava a comunidade.
+          Antes da espada, aprendeu a faca de entalhe: a vidente do bando ensinou Runa a ler
+          as runas na madeira, na neve e no silêncio. «A espada decide depressa. A runa decide certo.»
+        </p>
+        <p style="margin-bottom: 20px; color: #ccc;">
+          Perdeu a família, foi acolhida pelo bando do Lobo Cinzento — remadores, ferreiros e
+          uma vidente que lia o vento. Lutou nas campanhas do sul e voltou com uma pergunta
+          que não a largava: <em>para que serve a vitória se não há mesa para voltar?</em>
+        </p>
+        <p style="margin-bottom: 20px; color: #ccc;">
+          A Taverna Fenrir nasceu dessa resposta. O nome é um aviso: nesta casa, até o destino
+          senta-se para beber. Cada viga carrega uma runa gravada à faca — Algiz na soleira,
+          othala no balcão, isa contra a neve.
+        </p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <h4>Infância — A Aldeia</h4>
+            <p>Aprendeu a ler runas na madeira e no silêncio antes de pegar em armas.</p>
+          </div>
+          <div class="timeline-item">
+            <h4>Juventude — O Bando do Lobo Cinzento</h4>
+            <p>Acolhida após a perda da família. Remadores, ferreiros e uma vidente que lia o vento.</p>
+          </div>
+          <div class="timeline-item">
+            <h4>As Campanhas do Sul</h4>
+            <p>Viagens, saques e a descoberta de que a guerra não preenche o vazio que ela carregava.</p>
+          </div>
+          <div class="timeline-item">
+            <h4>O Juramento sob Yggdrasil</h4>
+            <p>Gravou uma runa na raiz de uma árvore velha e jurou: nenhum ferido fica lá fora.</p>
+          </div>
+          <div class="timeline-item">
+            <h4>Hoje — A Taverna Fenrir</h4>
+            <p>O fogo aceso, a porta aberta e a caneca que nunca esfria para quem chega em paz.</p>
+          </div>
+        </div>
+        <button class="btn-player-runa" onclick="ouvirHistoriaRuna()">
+          ▶ Ouvir a Runa contar a história dela
+        </button>
       </div>
     </div>
   </section>
 
-  <!-- CONTOS -->
+  <!-- ============================================
+       MITOLOGIA
+       ============================================ -->
+  <section id="mitologia">
+    <h2 class="titulo-secao">Mitologia Nórdica</h2>
+    <p class="subtitulo-secao">A árvore que segura os mundos passa pela adega da taverna. É sério: desça e ouça as raízes.</p>
+    <div class="cards">
+      <div class="card">
+        <span class="card-tag">Cosmos</span>
+        <h3>Yggdrasil, a porta-raiz</h3>
+        <p>Nove Mundos pendurados nos galhos; a porta da taverna, feita de raiz caída. Entrar aqui é atravessar um juramento antigo.</p>
+      </div>
+      <div class="card">
+        <span class="card-tag">Símbolo</span>
+        <h3>Fenrir, o nome da casa</h3>
+        <p>O lobo acorrentado que um dia devorará o sol. Runa escolheu o nome como aviso: nesta casa, até o destino senta-se para beber.</p>
+      </div>
+      <div class="card">
+        <span class="card-tag">Escrita</span>
+        <h3>Runas que protegem</h3>
+        <p>Algiz na soleira, othala no balcão, isa contra a neve. Cada viga da taverna carrega uma runa gravada à faca.</p>
+      </div>
+      <div class="card">
+        <span class="card-tag">Forja</span>
+        <h3>Brokkr e Eitri — A Forja do Mjolnir</h3>
+        <p>Dois irmãos anões forjaram o martelo de Thor. Brokkr trabalhou o fole enquanto Eitri moldava o metal. Loki, disfarçado de moscardo, tentou atrapalhar — mas o martelo saiu perfeito. O Mjolnir é considerado o melhor tesouro dos deuses.</p>
+      </div>
+    </div>
+    <p class="nota-prototipo">ᚺ ᚾ ᛁ ᛃ ᛇ ᛈ · Sala viva: novos mitos, imagens e vídeos rituais chegarão aqui, ligando cada deus a uma história da Runa.</p>
+  </section>
+
+  <!-- ============================================
+       UNIVERSO VIKING
+       ============================================ -->
+  <section id="universo">
+    <h2 class="titulo-secao">Universo Viking</h2>
+    <p class="subtitulo-secao">Do fiorde ao salão: o mundo lá fora que entra pela porta a cada noite.</p>
+    <div class="cards">
+      <div class="card">
+        <span class="card-tag">Mundo</span>
+        <h3>O bando do Lobo Cinzento</h3>
+        <p>O antigo bando de Runa — remadores, ferreiros e uma vidente que lia o vento. A taverna é onde todos se reencontram.</p>
+      </div>
+      <div class="card">
+        <span class="card-tag">Mundo</span>
+        <h3>Dracares e rotas</h3>
+        <p>Velas listradas, proas de dragão, rotas de comércio e pilhagem que trazem histórias — e cicatrizes — ao balcão.</p>
+      </div>
+      <div class="card">
+        <span class="card-tag">Mundo</span>
+        <h3>Trégua de salão</h3>
+        <p>Armas na parede, sangue limpo na esteira, caneca cheia como sela de paz. As leis não escritas que mantêm a casa acesa.</p>
+      </div>
+    </div>
+    <h3 class="titulo-secao" style="font-size: 1.4rem; margin-top: 40px;">Você sabia?</h3>
+    <p class="subtitulo-secao">Oito achados rápidos para quebrar o gelo no balcão — do povo ao mito.</p>
+    <div class="cards">
+      <div class="card"><span class="card-tag">Sociedade</span><h3>O povo do norte</h3><p>Nem todo viking era guerreiro. A sociedade se dividia em Jarls, Karls e Thralls — e a maioria era Karl: fazendeiros, ferreiros e tecelões que sustentavam a comunidade. Runa era uma Karl antes de se tornar dona de taverna.</p></div>
+      <div class="card"><span class="card-tag">Cotidiano</span><h3>A vida no norte</h3><p>Invernos longos, verões curtos. Famílias viviam em longhouses, dividindo o abrigo com os animais no inverno. Pão, mingau, carne defumada, peixe seco e hidromel — quem sobrevive ao frio aprende a valorizar o fogo.</p></div>
+      <div class="card"><span class="card-tag">Guerra</span><h3>Aço e madeira</h3><p>O escudo redondo era a primeira defesa: tábuas finas de madeira, couro e um umbigo de ferro. O machado era ferramenta e arma ao mesmo tempo. A espada era rara — herança de pai para filho.</p></div>
+      <div class="card"><span class="card-tag">Guerra</span><h3>O muro de escudos</h3><p>Lado a lado, escudo contra escudo — o muro que caminha. Os vikings não lutavam sozinhos: avançavam como uma parede. Quando a linha quebrava, a batalha acabava.</p></div>
+      <div class="card"><span class="card-tag">Sobrevivência</span><h3>O perigo do inverno</h3><p>O inverno era o maior inimigo. As colheitas falhavam, o gado morria, as reservas acabavam. Infecções matavam mais que espadas — um corte inflamado podia ser fatal.</p></div>
+      <div class="card"><span class="card-tag">Destino</span><h3>A média de vida</h3><p>A expectativa rondava os 50 anos, mas a maioria morria antes dos 40. Mulheres viviam de 25 a 30 invernos. Runa, com 27, já era uma sobrevivente.</p></div>
+      <div class="card"><span class="card-tag">Crenças</span><h3>Deuses que observam</h3><p>Thor, dos camponeses e das tempestades. Frey, da paz e das colheitas. Odin, dos guerreiros. Valhalla prometia batalhas eternas e hidromel sem fim.</p></div>
+      <div class="card"><span class="card-tag">Curiosidades</span><h3>Você sabia?</h3><p>Sem chifres nos capacetes — isso é invenção moderna. Eles chegaram à América 500 anos antes de Colombo. O machado era a arma mais comum, não a espada. Hidromel era dos deuses e reis; cerveja fraca era o dia a dia.</p></div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       CONTOS
+       ============================================ -->
   <section id="contos">
     <h2 class="titulo-secao">Desta noite: contos do fogo</h2>
     <p class="subtitulo-secao">Trechos curtos para ler no celular, entre uma caneca e outra.</p>
     <div class="contos" id="listaContos"></div>
   </section>
 
-  <!-- UNIVERSO VIKING -->
-  <section id="universo">
-    <h2 class="titulo-secao">Você sabia?</h2>
-    <p class="subtitulo-secao">Curiosidades rápidas para quebrar o gelo.</p>
+  <!-- ============================================
+       RELÍQUIAS
+       ============================================ -->
+  <section id="reliquias">
+    <h2 class="titulo-secao">Sala de Relíquias — Anéis & Pingentes</h2>
+    <p class="subtitulo-secao">Cada peça nesta sala nasce de uma história: o anel do juramento, o pingente da raiz, o ferro do fiorde. Aqui ficarão as recomendações escolhidas pela Runa — com links externos e o conto que cada peça carrega.</p>
     <div class="cards">
-      <div class="card"><span class="card-tag">Sociedade</span><h3>O povo do norte</h3><p>Nem todo viking era guerreiro. A maioria era camponesa. Runa era uma Karl antes de se tornar dona de taverna.</p></div>
-      <div class="card"><span class="card-tag">Cotidiano</span><h3>A vida no norte</h3><p>Invernos longos, verões curtos. Famílias dividiam a casa com os animais. O hidromel aquece, as sagas passam o tempo.</p></div>
-      <div class="card"><span class="card-tag">Guerra</span><h3>Aço e madeira</h3><p>O escudo redondo era a primeira defesa. Machados partiam escudos, lanças voavam antes do corpo a corpo.</p></div>
-      <div class="card"><span class="card-tag">Guerra</span><h3>O muro de escudos</h3><p>Lado a lado, escudo contra escudo. Os vikings lutavam como uma parede que caminha.</p></div>
-      <div class="card"><span class="card-tag">Sobrevivência</span><h3>O perigo do inverno</h3><p>As colheitas falhavam, o gado morria. Infecções matavam mais que espadas.</p></div>
-      <div class="card"><span class="card-tag">Destino</span><h3>A média de vida</h3><p>A expectativa era de 50 anos, mas a maioria morria antes dos 40. Runa, com 27, já era uma sobrevivente.</p></div>
-      <div class="card"><span class="card-tag">Crenças</span><h3>Deuses que observam</h3><p>Thor era o deus dos camponeses. Frey, da paz. Odin, dos guerreiros. Valhalla prometia batalhas eternas.</p></div>
-      <div class="card"><span class="card-tag">Curiosidades</span><h3>Você sabia?</h3><p>A maioria dos vikings não usava capacetes com chifres. Eles chegaram à América 500 anos antes de Colombo.</p></div>
+      <div class="reliquia">
+        <div class="reliquia-img">Espaço reservado 1<br>Foto + história + link externo</div>
+        <h3>Espaço reservado 1</h3>
+        <p>Foto + história + link externo</p>
+        <a class="btn-afiliado" href="#" target="_blank">Ver recomendação →</a>
+      </div>
+      <div class="reliquia">
+        <div class="reliquia-img">Espaço reservado 2<br>Foto + história + link externo</div>
+        <h3>Espaço reservado 2</h3>
+        <p>Foto + história + link externo</p>
+        <a class="btn-afiliado" href="#" target="_blank">Ver recomendação →</a>
+      </div>
+      <div class="reliquia">
+        <div class="reliquia-img">Espaço reservado 3<br>Foto + história + link externo</div>
+        <h3>Espaço reservado 3</h3>
+        <p>Foto + história + link externo</p>
+        <a class="btn-afiliado" href="#" target="_blank">Ver recomendação →</a>
+      </div>
     </div>
+    <p class="nota-prototipo">Protótipo: nenhum produto, preço ou link publicado ainda. Estrutura pronta para receber fotos, vídeos, histórias ligadas e recomendações externas.</p>
   </section>
 
-  <!-- ARTE -->
+  <!-- ============================================
+       CANECAS
+       ============================================ -->
+  <section id="canecas">
+    <h2 class="titulo-secao">Canecas & Utensílios</h2>
+    <p class="subtitulo-secao">Carvalho, ferro batido, fogo manso. As canecas e utensílios da casa serão apresentados como parte das histórias — nunca como prateleira fria.</p>
+    <p style="text-align: center; color: #bbb; margin-bottom: 30px;">
+      A história completa está em <a href="#" onclick="abrirHistoria(3); return false;">Bardo e a sua caneca →</a>
+    </p>
+    <div class="cards">
+      <div class="reliquia">
+        <div class="reliquia-img">Espaço reservado 1<br>Foto + história + link externo</div>
+        <h3>Espaço reservado 1</h3>
+        <p>Foto + história + link externo</p>
+        <a class="btn-afiliado" href="#" target="_blank">Link externo de afiliado →</a>
+      </div>
+      <div class="reliquia">
+        <div class="reliquia-img">Espaço reservado 2<br>Foto + história + link externo</div>
+        <h3>Espaço reservado 2</h3>
+        <p>Foto + história + link externo</p>
+        <a class="btn-afiliado" href="#" target="_blank">Link externo de afiliado →</a>
+      </div>
+      <div class="reliquia">
+        <div class="reliquia-img">Espaço reservado 3<br>Foto + história + link externo</div>
+        <h3>Espaço reservado 3</h3>
+        <p>Foto + história + link externo</p>
+        <a class="btn-afiliado" href="#" target="_blank">Link externo de afiliado →</a>
+      </div>
+    </div>
+    <p class="nota-prototipo">A taverna conta a história; a compra acontece lá fora. Link externo de afiliado — abre em nova aba.</p>
+  </section>
+
+  <!-- ============================================
+       CAMISETAS
+       ============================================ -->
+  <section id="camisetas">
+    <h2 class="titulo-secao">Camisetas</h2>
+    <p class="subtitulo-secao">Runas discretas, tecido de estrada, corte que aguenta taverna cheia. As peças recomendadas hão de vestir a história — não o contrário.</p>
+    <div class="cards">
+      <div class="reliquia">
+        <div class="reliquia-img">Espaço reservado 1<br>Foto + história + link externo</div>
+        <h3>Espaço reservado 1</h3>
+        <p>Foto + história + link externo</p>
+        <a class="btn-afiliado" href="#" target="_blank">Ver recomendação →</a>
+      </div>
+      <div class="reliquia">
+        <div class="reliquia-img">Espaço reservado 2<br>Foto + história + link externo</div>
+        <h3>Espaço reservado 2</h3>
+        <p>Foto + história + link externo</p>
+        <a class="btn-afiliado" href="#" target="_blank">Ver recomendação →</a>
+      </div>
+      <div class="reliquia">
+        <div class="reliquia-img">Espaço reservado 3<br>Foto + história + link externo</div>
+        <h3>Espaço reservado 3</h3>
+        <p>Foto + história + link externo</p>
+        <a class="btn-afiliado" href="#" target="_blank">Ver recomendação →</a>
+      </div>
+    </div>
+    <p class="nota-prototipo">Protótipo: nenhum produto, preço ou link publicado ainda.</p>
+  </section>
+
+  <!-- ============================================
+       CASACOS
+       ============================================ -->
+  <section id="casacos">
+    <h2 class="titulo-secao">Casacos</h2>
+    <p class="subtitulo-secao">Para a neve lá fora: camadas pesadas, capuz fundo, espírito do norte. As recomendações chegarão com o conto do inverno correspondente.</p>
+    <div class="cards">
+      <div class="reliquia">
+        <div class="reliquia-img">Espaço reservado 1<br>Foto + história + link externo</div>
+        <h3>Espaço reservado 1</h3>
+        <p>Foto + história + link externo</p>
+        <a class="btn-afiliado" href="#" target="_blank">Ver recomendação →</a>
+      </div>
+      <div class="reliquia">
+        <div class="reliquia-img">Espaço reservado 2<br>Foto + história + link externo</div>
+        <h3>Espaço reservado 2</h3>
+        <p>Foto + história + link externo</p>
+        <a class="btn-afiliado" href="#" target="_blank">Ver recomendação →</a>
+      </div>
+      <div class="reliquia">
+        <div class="reliquia-img">Espaço reservado 3<br>Foto + história + link externo</div>
+        <h3>Espaço reservado 3</h3>
+        <p>Foto + história + link externo</p>
+        <a class="btn-afiliado" href="#" target="_blank">Ver recomendação →</a>
+      </div>
+    </div>
+    <p class="nota-prototipo">Protótipo: nenhum produto, preço ou link publicado ainda.</p>
+  </section>
+
+  <!-- ============================================
+       ROCK & METAL
+       ============================================ -->
+  <section id="rock">
+    <h2 class="titulo-secao">Rock & Metal</h2>
+    <p class="subtitulo-secao">A trilha da casa: riffs, tambores de guerra e coros de salão.</p>
+    <div class="cards">
+      <div class="reliquia">
+        <div class="reliquia-img">Capa da playlist<br>(aguardando)</div>
+        <h3>Playlist — Fogo Aceso</h3>
+        <p>As faixas que tocam na taverna enquanto as histórias são contadas.</p>
+        <a class="btn-afiliado" href="#" target="_blank">Ouvir →</a>
+      </div>
+      <div class="reliquia">
+        <div class="reliquia-img">Capa do álbum<br>(aguardando)</div>
+        <h3>Álbum — Tambores do Norte</h3>
+        <p>Uma seleção de metal folk para noites longas e invernos maiores.</p>
+        <a class="btn-afiliado" href="#" target="_blank">Ouvir →</a>
+      </div>
+    </div>
+    <p class="nota-prototipo">Espaço reservado para recomendações futuras.</p>
+  </section>
+
+  <!-- ============================================
+       ARTE CONCEITUAL (CARROSSEL)
+       ============================================ -->
   <section id="arte">
     <h2 class="titulo-secao">Arte Conceitual</h2>
     <p class="subtitulo-secao">O processo criativo por trás da Runa — esboços, estudos e evoluções.</p>
-    <div class="arte-container">
-      As imagens de arte conceitual serão adicionadas aqui em breve.
+    <div class="carrossel">
+      <div class="carrossel-slides" id="slides">
+        <div class="slide">
+          <div class="placeholder">Estudo 01 — Aguardando assets/img/arte/arte-01.jpg</div>
+          <div class="legenda">Primeiros esboços — Runa ainda sem cicatrizes.</div>
+        </div>
+        <div class="slide">
+          <div class="placeholder">Estudo 02 — Aguardando assets/img/arte/arte-02.jpg</div>
+          <div class="legenda">Runa atrás do balcão, com a caneca do Bardo.</div>
+        </div>
+        <div class="slide">
+          <div class="placeholder">Estudo 03 — Aguardando assets/img/arte/arte-03.jpg</div>
+          <div class="legenda">Runa antes da taverna — em campanha, no sul.</div>
+        </div>
+        <div class="slide">
+          <div class="placeholder">Estudo 04 — Aguardando assets/img/arte/arte-04.jpg</div>
+          <div class="legenda">O juramento sob Yggdrasil.</div>
+        </div>
+      </div>
+      <button class="carrossel-btn prev" onclick="mudarSlide(-1)" aria-label="Anterior">‹</button>
+      <button class="carrossel-btn next" onclick="mudarSlide(1)" aria-label="Próximo">›</button>
+      <div class="indicadores" id="indicadores">
+        <span class="active" onclick="irSlide(0)"></span>
+        <span onclick="irSlide(1)"></span>
+        <span onclick="irSlide(2)"></span>
+        <span onclick="irSlide(3)"></span>
+      </div>
     </div>
   </section>
 
-  <!-- RODAPÉ -->
+  <!-- ============================================
+       RODAPÉ
+       ============================================ -->
   <footer>
     <div class="redes">
       <a href="https://www.instagram.com/runataverna" target="_blank" aria-label="Instagram">
@@ -443,13 +976,17 @@
 
 </div>
 
-<!-- PLAYER DE MÚSICA -->
+<!-- ============================================
+     PLAYER DE MÚSICA FLUTUANTE
+     ============================================ -->
 <div class="player-musica" id="playerMusicaBox">
   <button id="btnMusica" onclick="toggleMusica()">❚❚</button>
   <span>♪</span>
 </div>
 
-<!-- MODAL DE HISTÓRIA -->
+<!-- ============================================
+     MODAL DE HISTÓRIA
+     ============================================ -->
 <div class="historia-modal" id="historiaModal">
   <div class="historia-box">
     <button class="historia-fechar" onclick="fecharHistoria()">✕</button>
@@ -466,215 +1003,304 @@
   </div>
 </div>
 
-<!-- ÁUDIOS NATIVOS (GitHub) -->
-<audio id="musicaAmbiente" src="musica_ambiente.mp3" loop preload="auto"></audio>
-<audio id="audioRuna" src="runa_historia_completa_v1.mp3" preload="auto"></audio>
-<audio id="boasVindas" src="boas_vindas.mp3" preload="auto"></audio>
+<!-- ============================================
+     ÁUDIOS
+     ============================================ -->
+<audio id="musicaAmbiente" src="assets/audio/musica-ambiente.mp3" loop preload="metadata"></audio>
+<audio id="audioRuna" src="assets/audio/runa-historia-completa-v1.mp3" preload="metadata"></audio>
+<audio id="boasVindas" src="assets/audio/boas-vindas.mp3" preload="metadata"></audio>
 
 <script>
-  // ============================================
-  // DADOS DAS HISTÓRIAS
-  // ============================================
-  const historias = [
-    {
-      titulo: "A caneca que nunca esfria",
-      texto: "Um viajante duvidou do fogo da casa. Runa serviu, sorriu — e a caneca ardeu em chamas azuis. Dizem que o fogo da Taverna Fenrir não queima a mão de quem chega em paz — só aquece a coragem.",
-      audio: null
-    },
-    {
-      titulo: "Sobre a Runa",
-      texto: "A história completa dela, contada por ela mesma, atrás do balcão. Uma guerreira que perdeu a família, encontrou um bando, buscou vingança, descobriu o vazio e escolheu construir uma taverna. Ouça na voz dela.",
-      audio: "runa_historia_completa_v1.mp3"
-    },
-    {
-      titulo: "Brokkr e Eitri",
-      texto: "Dois irmãos anões forjaram o martelo de Thor. Brokkr trabalhou o fole enquanto Eitri moldava o metal. Loki, disfarçado de moscardo, tentou atrapalhar — mas o martelo saiu perfeito. Dizem que o pingente de Runa tem a mesma marca.",
-      audio: null
-    },
-    {
-      titulo: "Bardo e a sua caneca",
-      texto: "O velho cliente que tem uma caneca específica e uma memória que carrega. Toda quinta-feira ele senta no mesmo canto e pede hidromel na caneca dele. Uma história sobre objetos que carregam o peso de quem fomos.",
-      audio: null
-    },
-    {
-      titulo: "Juramento sob Yggdrasil",
-      texto: "Antes de abrir a taverna, Runa gravou uma runa na raiz da árvore e jurou: nenhum ferido fica lá fora. A taverna inteira é a lição aprendida.",
-      audio: null
-    },
-    {
-      titulo: "Neve e sangue na porta",
-      texto: "Na noite em que Fenrir uivou, Runa trocou a espada pelo avental — sem pousar nenhuma das duas. A trégua dura até a caneca esvaziar.",
-      audio: null
-    },
-    {
-      titulo: "Como Runa aprendeu as runas",
-      texto: "Antes da espada, a faca de entalhe: a vidente do bando ensinou Runa a ler as runas na madeira, na neve e no silêncio. \"A espada decide depressa. A runa decide certo.\"",
-      audio: null
+// ============================================
+// DADOS DAS HISTÓRIAS — lore fiel do WisyLink
+// ============================================
+const historias = [
+  {
+    titulo: "A caneca que nunca esfria",
+    subtitulo: "Conto I · Noite de neve",
+    texto: "A neve batia na porta como quem pede licença, e o viajante entrou a rir-se do frio. «Quentinho, dizes?»\n\nRuna não respondeu: pousou a caneca de carvalho no balcão e deixou o hidromel acender-se num sopro azul. Dizem que o fogo da Taverna Fenrir não queima a mão de quem chega em paz — só aquece a coragem.\n\nO viajante bebeu de um gole, tossiu, riu, e pediu outra. Runa, de braços cruzados, murmurou a frase que a casa inteira já conhece.\n\nDesde essa noite, ninguém duvida da caneca. E quem duvida, volta — porque o frio lá fora é real, mas o fogo aqui dentro é teimoso.",
+    rodape: "1 — contado por Runa, atrás do balcão. ᛟ ᚾ ᛁ",
+    audio: null
+  },
+  {
+    titulo: "Sobre a Runa",
+    subtitulo: "A história completa na voz dela",
+    texto: "A história completa dela, contada por ela mesma, atrás do balcão.\n\nUma guerreira que perdeu a família, encontrou o bando do Lobo Cinzento, buscou vingança, descobriu o vazio e escolheu construir uma taverna.\n\nOuça na voz dela.",
+    rodape: "",
+    audio: "assets/audio/runa-historia-completa-v1.mp3"
+  },
+  {
+    titulo: "Brokkr e Eitri",
+    subtitulo: "O conto dos anões",
+    texto: "Senta que essa é antiga, de antes dos homens contarem o tempo direito.\n\nDois irmãos anões, Brokkr e Eitri, os melhores ferreiros dos Nove Mundos, apostaram com Loki que fariam tesouros maiores que todos os que os deuses já tinham visto. Eitri moldava o metal e Brokkr trabalhava o fole sem parar.\n\nLoki, disfarçado de moscardo, picava o pescoço e as pálpebras de Brokkr para ele largar o fole — o sangue escorria, mas ele não parou. O martelo saiu de cabo curto por causa da provocação, mas perfeito no peso, no equilíbrio e na força. Os deuses julgaram: o Mjolnir era o melhor tesouro de todos.\n\nÉ por isso que eu carrego o pingente no peito. Não é enfeite. É lembrança de que coisa boa nasce no fogo, com teimosia e um irmão ao lado soprando o fole. Quando o seguro numa noite difícil, eu lembro: aguenta o moscardo, não solta o fole.",
+    rodape: "1 — contado por Runa, atrás do balcão. ᛟ ᚾ ᛁ",
+    audio: null
+  },
+  {
+    titulo: "Bardo e a sua caneca",
+    subtitulo: "Conto V · O cliente fiel",
+    texto: "Senta. Essa história é sobre um velho cliente. O nome dele é Bardo. Não é anão, não é ferreiro, não é deus. É um velho teimoso que aparece aqui toda quinta-feira, senta no mesmo canto, e pede a mesma coisa: hidromel na caneca dele.\n\nE ele tem uma caneca específica. Não aceita outra. Já tentei servir em caneca nova, ele devolveu. Já tentei servir em caneca de barro, ele olhou pra mim como se eu tivesse ofendido a mãe dele.\n\n— Runa, essa caneca aqui tem história — ele diz. E tem. Ele comprou de um mercador que passou por aqui há uns dez invernos. Pagou caro. Diz que essa caneca não quebra, não racha, e mantém o hidromel quente por mais tempo. Eu não sei se é verdade. Mas o velho Bardo nunca reclamou do frio na bebida.\n\nO que eu sei é que ele chega, senta, e a caneca já está esperando. Ele pega, olha por dentro, cheira, e só depois bebe. Uma vez eu perguntei por que ele gostava tanto daquela caneca. Ele respondeu:\n\n— Porque ela é minha. E porque, quando eu seguro ela, eu lembro de quem eu era antes de ficar velho.\n\nNão entendi na hora. Mas depois entendi. Tem coisas que a gente carrega não pelo valor. Carrega pelo peso.\n\nEntão, se você quer uma caneca como a do Bardo, eu entendo. Não é só uma caneca. É um objeto que carrega memória. Aqui na Taverna Fenrir, a gente não vende lembranças. A gente vende o que ajuda a lembrar.",
+    rodape: "1 — contado por Runa, atrás do balcão.",
+    audio: null
+  },
+  {
+    titulo: "Juramento sob Yggdrasil",
+    subtitulo: "Conto IV · A raiz",
+    texto: "Antes de abrir a taverna, Runa gravou uma runa na raiz da árvore e jurou: nenhum ferido fica lá fora.\n\nA taverna inteira é a lição aprendida.",
+    rodape: "1 — contado por Runa, atrás do balcão. ᛟ ᚾ ᛁ",
+    audio: null
+  },
+  {
+    titulo: "Neve e sangue na porta",
+    subtitulo: "Conto III · O inverno do lobo",
+    texto: "O uivo desceu da montanha e apagou as tochas do cais. Os mercenários riram; os pescadores rezaram.\n\nRuna limpou o balcão, pendurou a espada ao alcance da mão e manteve a porta aberta. «Quem entra com sangue na bota, limpa na esteira», disse. E serviu pão e fogo a inimigos do mesmo banco, porque na Taverna Fenrir a trégua dura até a caneca esvaziar.\n\nQuando o lobo calou-se, a neve cobria tudo — menos a soleira. O fogo tinha vencido outra vez.",
+    rodape: "1 — contado por Runa, atrás do balcão. ᛟ ᚾ ᛁ",
+    audio: null
+  },
+  {
+    titulo: "Como Runa aprendeu as runas",
+    subtitulo: "Conto II · A faca de entalhe",
+    texto: "Antes da espada, a faca de entalhe: a vidente do bando ensinou Runa a ler as runas na madeira, na neve e no silêncio.\n\n«A espada decide depressa. A runa decide certo.»",
+    rodape: "1 — contado por Runa, atrás do balcão. ᛟ ᚾ ᛁ",
+    audio: null
+  }
+];
+
+let historiaAtual = 0;
+let audioRunaTocando = false;
+
+// ============================================
+// REFERÊNCIAS
+// ============================================
+const musica = document.getElementById('musicaAmbiente');
+const boasVindas = document.getElementById('boasVindas');
+const audioRuna = document.getElementById('audioRuna');
+const btnMusica = document.getElementById('btnMusica');
+
+// ============================================
+// FADE DE VOLUME — transição suave
+// ============================================
+function fadeVolume(audioEl, targetVolume, duration = 600) {
+  if (audioEl._fadeInterval) clearInterval(audioEl._fadeInterval);
+  const steps = 20;
+  const stepTime = duration / steps;
+  const startVolume = audioEl.volume;
+  const diff = targetVolume - startVolume;
+  let step = 0;
+
+  audioEl._fadeInterval = setInterval(() => {
+    step++;
+    if (step >= steps) {
+      clearInterval(audioEl._fadeInterval);
+      audioEl.volume = Math.max(0, Math.min(1, targetVolume));
+      return;
     }
-  ];
+    audioEl.volume = Math.max(0, Math.min(1, startVolume + diff * (step / steps)));
+  }, stepTime);
+}
 
-  let historiaAtual = 0;
-  let audioRunaTocando = false;
+// ============================================
+// RENDERIZAR CONTOS
+// ============================================
+function renderizarContos() {
+  const container = document.getElementById('listaContos');
+  container.innerHTML = historias.map((h, i) => `
+    <div class="conto" onclick="abrirHistoria(${i})">
+      <h3>${h.titulo}</h3>
+      <p>${h.texto.substring(0, 130).replace(/\n/g, ' ')}...</p>
+      <span class="ler-conto">Ler o conto →</span>
+    </div>
+  `).join('');
+}
 
-  // ============================================
-  // REFERÊNCIAS
-  // ============================================
-  const musica = document.getElementById('musicaAmbiente');
-  const boasVindas = document.getElementById('boasVindas');
-  const audioRuna = document.getElementById('audioRuna');
-  const btnMusica = document.getElementById('btnMusica');
+// ============================================
+// ABRIR / FECHAR HISTÓRIA
+// ============================================
+function abrirHistoria(index) {
+  historiaAtual = index;
+  const h = historias[index];
+  document.getElementById('historiaTitulo').textContent = h.titulo;
+  document.getElementById('historiaTexto').textContent = h.texto;
 
-  // ============================================
-  // RENDERIZAR LISTA DE CONTOS
-  // ============================================
-  function renderizarContos() {
-    const container = document.getElementById('listaContos');
-    container.innerHTML = historias.map((h, i) => `
-      <div class="conto" onclick="abrirHistoria(${i})">
-        <h3>${h.titulo}</h3>
-        <p>${h.texto.substring(0, 130)}...</p>
-        <span class="ler-conto">Ler o conto →</span>
-      </div>
-    `).join('');
+  const audioBox = document.getElementById('historiaAudioBox');
+  const audioBtn = document.getElementById('historiaAudioBtn');
+
+  audioRuna.pause();
+  audioRuna.currentTime = 0;
+  audioBtn.textContent = '▶';
+  audioRunaTocando = false;
+
+  fadeVolume(musica, 0.20);
+
+  if (h.audio) {
+    audioBox.classList.add('visible');
+    audioRuna.src = h.audio;
+  } else {
+    audioBox.classList.remove('visible');
   }
 
-  // ============================================
-  // ABRIR / FECHAR HISTÓRIA
-  // ============================================
-  function abrirHistoria(index) {
-    historiaAtual = index;
-    const h = historias[index];
-    document.getElementById('historiaTitulo').textContent = h.titulo;
-    document.getElementById('historiaTexto').textContent = h.texto;
+  document.getElementById('btnHistoriaAnterior').disabled = (index === 0);
+  document.getElementById('btnHistoriaProxima').disabled = (index === historias.length - 1);
 
-    const audioBox = document.getElementById('historiaAudioBox');
-    const audioBtn = document.getElementById('historiaAudioBtn');
+  document.getElementById('historiaModal').classList.add('active');
+}
 
-    // Para qualquer áudio em execução
+function fecharHistoria() {
+  document.getElementById('historiaModal').classList.remove('active');
+  audioRuna.pause();
+  audioRuna.currentTime = 0;
+  audioRunaTocando = false;
+  document.getElementById('historiaAudioBtn').textContent = '▶';
+  fadeVolume(musica, 0.20);
+}
+
+function historiaAnterior() {
+  if (historiaAtual > 0) abrirHistoria(historiaAtual - 1);
+}
+
+function proximaHistoria() {
+  if (historiaAtual < historias.length - 1) abrirHistoria(historiaAtual + 1);
+}
+
+// ============================================
+// ÁUDIO DA HISTÓRIA — DUCKING (20% → 5% → 20%)
+// ============================================
+function toggleHistoriaAudio() {
+  const btn = document.getElementById('historiaAudioBtn');
+
+  if (audioRunaTocando) {
     audioRuna.pause();
-    audioRuna.currentTime = 0;
-    audioBtn.textContent = '▶';
+    btn.textContent = '▶';
     audioRunaTocando = false;
-
-    // Restaura música para 20%
-    musica.volume = 0.20;
-
-    if (h.audio) {
-      audioBox.classList.add('visible');
-      audioRuna.src = h.audio;
-    } else {
-      audioBox.classList.remove('visible');
-    }
-
-    // Atualiza botões de navegação
-    document.getElementById('btnHistoriaAnterior').disabled = (index === 0);
-    document.getElementById('btnHistoriaProxima').disabled = (index === historias.length - 1);
-
-    document.getElementById('historiaModal').classList.add('active');
+    fadeVolume(musica, 0.20);
+  } else {
+    audioRuna.volume = 1.0;
+    audioRuna.play().catch(e => console.log('Áudio bloqueado:', e));
+    btn.textContent = '❚❚';
+    audioRunaTocando = true;
+    fadeVolume(musica, 0.05);
   }
+}
 
-  function fecharHistoria() {
-    document.getElementById('historiaModal').classList.remove('active');
-    audioRuna.pause();
-    audioRuna.currentTime = 0;
-    audioRunaTocando = false;
-    document.getElementById('historiaAudioBtn').textContent = '▶';
-    musica.volume = 0.20;
-  }
+audioRuna.addEventListener('ended', function() {
+  audioRunaTocando = false;
+  document.getElementById('historiaAudioBtn').textContent = '▶';
+  fadeVolume(musica, 0.20);
+});
 
-  function historiaAnterior() {
-    if (historiaAtual > 0) abrirHistoria(historiaAtual - 1);
-  }
+// ============================================
+// BOTÃO "OUVIR A RUNA" (na seção Sobre)
+// ============================================
+function ouvirHistoriaRuna() {
+  abrirHistoria(1);
+}
 
-  function proximaHistoria() {
-    if (historiaAtual < historias.length - 1) abrirHistoria(historiaAtual + 1);
-  }
+// ============================================
+// ENTRAR NA TAVERNA
+// ============================================
+function entrar() {
+  document.getElementById('entrada').classList.add('hidden');
+  document.getElementById('conteudo').classList.add('visible');
+  document.getElementById('navbar').classList.add('visible');
+  document.getElementById('playerMusicaBox').classList.add('visible');
 
-  // ============================================
-  // ÁUDIO DA HISTÓRIA — DUCKING 5% / 20%
-  // ============================================
-  function toggleHistoriaAudio() {
-    const btn = document.getElementById('historiaAudioBtn');
+  boasVindas.volume = 0.7;
+  const playPromise = boasVindas.play();
 
-    if (audioRunaTocando) {
-      audioRuna.pause();
-      btn.textContent = '▶';
-      audioRunaTocando = false;
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+      boasVindas.addEventListener('ended', () => {
+        musica.volume = 0;
+        musica.play().then(() => {
+          fadeVolume(musica, 0.20, 1200);
+        }).catch(e => console.log('Música bloqueada:', e));
+      }, { once: true });
+    }).catch(e => {
+      console.log('Boas-vindas bloqueadas:', e);
       musica.volume = 0.20;
-    } else {
-      audioRuna.play().catch(e => console.log('Áudio bloqueado:', e));
-      btn.textContent = '❚❚';
-      audioRunaTocando = true;
-      musica.volume = 0.05;
-    }
-  }
-
-  audioRuna.addEventListener('ended', function() {
-    audioRunaTocando = false;
-    document.getElementById('historiaAudioBtn').textContent = '▶';
-    musica.volume = 0.20;
-  });
-
-  // ============================================
-  // ENTRAR NA TAVERNA
-  // ============================================
-  function entrar() {
-    document.getElementById('entrada').classList.add('hidden');
-    document.getElementById('conteudo').classList.add('visible');
-    document.getElementById('playerMusicaBox').classList.add('visible');
-
-    // Música ambiente começa a 20%
-    musica.volume = 0.20;
-    musica.play().catch(e => console.log('Música bloqueada:', e));
-
-    // Toca boas-vindas
-    boasVindas.volume = 0.3;
-    boasVindas.play().catch(e => console.log('Áudio bloqueado:', e));
-  }
-
-  // ============================================
-  // TOGGLE MÚSICA
-  // ============================================
-  function toggleMusica() {
-    if (musica.paused) {
-      musica.play();
-      btnMusica.textContent = '❚❚';
-    } else {
-      musica.pause();
-      btnMusica.textContent = '▶';
-    }
-  }
-
-  // ============================================
-  // CARROSSEL
-  // ============================================
-  let slideAtual = 0;
-  const totalSlides = 4;
-
-  function mudarSlide(dir) {
-    slideAtual += dir;
-    if (slideAtual < 0) slideAtual = totalSlides - 1;
-    if (slideAtual >= totalSlides) slideAtual = 0;
-    atualizarSlide();
-  }
-
-  function irSlide(index) {
-    slideAtual = index;
-    atualizarSlide();
-  }
-
-  function atualizarSlide() {
-    document.getElementById('slides').style.transform = 'translateX(-' + (slideAtual * 100) + '%)';
-    document.querySelectorAll('#indicadores span').forEach((dot, i) => {
-      dot.classList.toggle('active', i === slideAtual);
+      musica.play().catch(err => console.log('Música bloqueada:', err));
     });
   }
+}
 
-  // ============================================
-  // INIT
-  // ============================================
-  renderizarContos();
+// ============================================
+// TOGGLE MÚSICA
+// ============================================
+function toggleMusica() {
+  if (musica.paused) {
+    musica.play();
+    btnMusica.textContent = '❚❚';
+  } else {
+    musica.pause();
+    btnMusica.textContent = '▶';
+  }
+}
+
+// ============================================
+// MENU MOBILE
+// ============================================
+function toggleMenu() {
+  document.getElementById('menuLista').classList.toggle('aberto');
+}
+function fecharMenu() {
+  document.getElementById('menuLista').classList.remove('aberto');
+}
+document.addEventListener('click', (e) => {
+  const menu = document.getElementById('menuLista');
+  const toggle = document.querySelector('.menu-toggle');
+  if (!menu || !toggle) return;
+  if (!menu.contains(e.target) && !toggle.contains(e.target)) {
+    menu.classList.remove('aberto');
+  }
+});
+
+// ============================================
+// CARROSSEL
+// ============================================
+let slideAtual = 0;
+const totalSlides = 4;
+
+function mudarSlide(dir) {
+  slideAtual += dir;
+  if (slideAtual < 0) slideAtual = totalSlides - 1;
+  if (slideAtual >= totalSlides) slideAtual = 0;
+  atualizarSlide();
+}
+function irSlide(index) {
+  slideAtual = index;
+  atualizarSlide();
+}
+function atualizarSlide() {
+  const slides = document.getElementById('slides');
+  if (slides) {
+    slides.style.transform = 'translateX(-' + (slideAtual * 100) + '%)';
+  }
+  document.querySelectorAll('#indicadores span').forEach((dot, i) => {
+    dot.classList.toggle('active', i === slideAtual);
+  });
+}
+
+// Swipe no carrossel (mobile)
+(function initSwipe() {
+  const carrossel = document.querySelector('.carrossel');
+  if (!carrossel) return;
+  let startX = 0;
+  carrossel.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].clientX;
+  }, { passive: true });
+  carrossel.addEventListener('touchend', (e) => {
+    const diff = e.changedTouches[0].clientX - startX;
+    if (Math.abs(diff) > 50) {
+      mudarSlide(diff > 0 ? -1 : 1);
+    }
+  }, { passive: true });
+})();
+
+// ============================================
+// INIT
+// ============================================
+renderizarContos();
 </script>
 
 </body>
-</html>
+         </html>
